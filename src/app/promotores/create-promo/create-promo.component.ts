@@ -35,6 +35,7 @@ export class CreatePromoComponent implements OnInit {
   //promotor: Promotor;
   errorMessage: string;
   pantallaAddP: boolean = true;
+  submitted: boolean = false;
 
   constructor(private _promotoresService: PromotoresService,
               private _router:Router) { 
@@ -74,6 +75,7 @@ export class CreatePromoComponent implements OnInit {
         .create(this.promotor)
         .subscribe((createdPromotor) => {
                       console.log(createdPromotor);
+                      this.submitted = true;
                       this._router.navigate(['/promotores/view', createdPromotor._id]);
                   },
                    (error) =>  {

@@ -1,8 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 .container {
-  width: 85%; 
+  width: 84%; 
 }  
 
+/* to fix "footer" to bottom of page: body margin-botton equal to footer height */
+/*
+body {
+  margin-bottom: 50px;
+}
+
+.footer {
+  position: fixed;
+  height: 50px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+  text-align: center;
+} */
+
+.obrasbuttons {   /* para mostrar varios botones en fila al consultar listado de obras */
+  display: inline;
+}
+
+/*----------*/
 fieldset{
   padding: 5px;
   margin: 3px;
@@ -12,4 +33,159 @@ fieldset{
 fieldset .form-group{
   padding: 5px;
   margin: 3px;
+  border: 0px solid white;
 }
+
+/* ----------*/
+/*
+.my-pagination /deep/ .ngx-pagination .current {
+  background: #343A40;
+}
+*/
+
+/*  when responsive avoid the shrinking so that user can see what types in */
+#navBarInput{ 
+  min-width: 200px;
+}
+
+/* --------- */
+/* to make the image in card (obras) smaller */
+.img-thumbnail {
+  max-width: 50%;
+}
+
+
+/* table sorting --------------------------------------------------------------*/
+table{
+  border: 1px solid #8f746c;
+  /*border-radius: 15px; */  /* NO LO APLICA */
+}
+
+table thead{
+  background-color: #F2C9E2;
+  border-radius: 15px;
+  border-bottom: 1px solid #8f746c; /* NO SE VE */
+}
+
+th {
+  cursor: pointer;
+}
+
+/*
+table td[class*=col-], table th[class*=col-] {
+  position: static;
+  display: table-cell;
+  float: none;
+}
+*/
+
+/* ------------------------------------------------------------------------------*/
+/*
+Responsive breakpoints in BOOTSTRAP 4
+Since Bootstrap is developed to be mobile first, we use a handful of media queries 
+to create sensible breakpoints for our layouts and interfaces. These breakpoints are
+mostly based on minimum viewport widths and allow us to scale up elements as the 
+viewport changes.
+
+Bootstrap primarily uses the following media query ranges—or breakpoints—in our 
+source Sass files for our layout, grid system, and components.
+
+    // Extra small devices (portrait phones, less than 576px)
+    // No media query since this is the default in Bootstrap
+
+    // Small devices (landscape phones, 576px and up)
+    @media (min-width: 576px) { ... }
+
+    // Medium devices (tablets, 768px and up)
+    @media (min-width: 768px) { ... }
+
+    // Large devices (desktops, 992px and up)
+    @media (min-width: 992px) { ... }
+
+    // Extra large devices (large desktops, 1200px and up)
+    @media (min-width: 1200px) { ... }
+
+
+We occasionally use media queries that go in the other direction 
+(the given screen size or smaller):
+
+
+    // Extra small devices (portrait phones, less than 576px)
+    @media (max-width: 575.98px) { ... }
+
+    // Small devices (landscape phones, less than 768px)
+    @media (max-width: 767.98px) { ... }
+
+    // Medium devices (tablets, less than 992px)
+    @media (max-width: 991.98px) { ... }
+
+    // Large devices (desktops, less than 1200px)
+    @media (max-width: 1199.98px) { ... }
+
+    // Extra large devices (large desktops)
+    // No media query since the extra-large breakpoint has no upper bound on its width
+
+*/
+
+
+/* FOR TABLETS  --------------------------------------------------------------- */
+/* Apply these rules to all screens which up to 576px (check screens above 320px) */
+@media screen and (max-width: 768px) {
+
+  .img-thumbnail {
+     max-width: 80%; 
+  }
+}
+
+/* FOR MOBILES --------------------------------------------------------------- */
+/* Apply these rules to all screens which up to 576px (check screens above 320px) */
+@media screen and (max-width: 576px) {
+
+  .container {
+    width: 98%;
+  }
+
+  .img-thumbnail {
+    max-width: 100%; 
+  }
+
+  /* VERY IMPORTANT! to avoid the table going out container width and overflowing */
+  .table {
+    table-layout: fixed;
+    word-wrap: break-word;
+    max-width: 99%;
+  }
+  
+  /* titles in tabel top aligned */
+  .table > thead > tr > th {
+    vertical-align: top;
+  }
+
+  .marketing,
+  .footer {
+    padding-left: 0.5px;
+    padding-right: 0.5px;
+  } 
+
+ 
+  .jumbotron .lead img {   
+    max-height:95%;
+    width:95%;
+  }
+  
+
+  .jumbotron .btn {
+    font-size: 14px;
+    padding: 14px 10px;  
+  } 
+
+    
+  .modal-dialog{
+    max-width: 300px;
+    width: auto; 
+    max-height: 100vh; 
+  }
+}
+
+
+

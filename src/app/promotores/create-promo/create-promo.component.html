@@ -4,58 +4,60 @@
 
 
 <h1>New Promotor</h1>
+<!-- "ngSubmit" does a little bit more than "submit": cancels the default action of the form -->
+<!--           so it isn't going to refresh our page when we submit the form -->
+<form (ngSubmit)="savePromotor()" id="promotorForm" name="addPromotorForm" 
+      #form="ngForm" 
+      novalidate>
 
-<form (ngSubmit)="savePromotor()" id="promotorForm" name="addPromotorForm" novalidate>
+   <!-- {{diagnostic}} -->
 
+   Is the form valid? {{ form.valid }}
   <!--
-	<div>
-		<label for="title">Title</label>
-		<div>
-			<input type="text" required [(ngModel)]="article.title" name="title" placeholder="Title">
-		</div>
-	</div>
-	<div>
-		<label for="content">Content</label>
-		<div>
-			<textarea type="text" required cols="30" rows="10" [(ngModel)]="article.content" name="content" placeholder="Content"></textarea>
-		</div>
-  </div>
-  
--->
-
   <div class="form-group">
-
-     {{diagnostic}}   
-
+  
+    [ngClass]="{'is-invalid':procode.invalid && procode.touched}"
+   --> 
+  <div class="form-group">     
     <label for="procod" class="control-label">Código Promotor</label>
     <div *ngIf="pantallaAddP">
        <input type="text" 
               [(ngModel)]="promotor.codigop" 
               class="form-control" 
               id="procod" 
-              name="procode" 
-              >  
+              name="procode"
+              #procode="ngModel" 
+              required>  
+
+        <span class="form-text" *ngIf="procode.invalid && procode.touched">
+          Codigo promotor es obligatorio
+        </span>  
+        
+        Valid:   {{ procode.valid }}  <br>
+        Touched: {{ procode.touched }} <br>
+        
     </div>
 
-    <div *ngIf="pantallaEditP">
-      <input type="text" 
-            [(ngModel)]="promotor.codigop" 
-            class="form-control" 
-            id="procod" 
-            name="procode" 
-            readonly>
-    </div>
   </div>
   
-  <div class="form-group">
+  <div class="form-group" [ngClass]="{'invalid': pronombre.invalid && pronombre.touched,
+                                      'valid': pronombre.valid && pronombre.touched}">
     <label for="pronom" class="control-label">Nombre Promotor</label>
     <input type="text" 
            [(ngModel)]="promotor.nombrep" 
            class="form-control" 
            id="pronom" 
            name="pronombre"
-           >
+           required
+           #pronombre="ngModel">
 
+      <span class="form-text" *ngIf="pronombre.invalid && pronombre.touched">
+            Nombre del promotor es obligatorio
+      </span>  
+
+      Valid:   {{ pronombre.valid }}  <br>
+      Touched: {{ pronombre.touched }} <br>
+      
   </div>
   
   <div class="form-group">
@@ -150,7 +152,7 @@
     <input type="submit" 
            class="btn btn-primary" 
            value="Guardar" 
-           ng-disabled="false">
+           [disabled]="form.invalid">
     <button type="button" 
             class="btn btn-success" 
             (click)="goBack()">Back

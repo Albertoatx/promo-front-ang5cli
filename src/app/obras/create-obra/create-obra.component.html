@@ -1,0 +1,62 @@
+
+<h1>New Obra</h1>
+<!-- "ngSubmit" does a little bit more than "submit": cancels the default action of the form -->
+<!--           so it isn't going to refresh our page when we submit the form -->
+<form (ngSubmit)="saveObra()" id="obraForm" name="addObraForm" 
+      #form="ngForm" 
+      novalidate>
+
+   <!-- {{diagnostic}} -->
+
+   <!-- Is the form valid? {{ form.valid }} -->
+
+  <div class="form-group">  
+      <label for="obracod" class="control-label">Código Obra</label>
+      <input type="text" 
+              [(ngModel)]="obra.codigoobra" 
+              class="form-control" 
+              id="obracod" 
+              name="obracode" 
+              #obracode="ngModel" 
+              required>
+
+        <span class="form-text" *ngIf="obracode.invalid && obracode.touched">
+            Codigo obra es obligatorio
+        </span>  
+              
+       <!-- Valid:   {{ obracode.valid }}  <br>
+        Touched: {{ obracode.touched }} <br> -->
+  </div>
+  
+
+  <div class="form-group">
+      <label for="obranom" class="control-label">Nombre Obra</label>
+      <input type="text" 
+             [(ngModel)]="obra.nombreobra" 
+             class="form-control" 
+             id="obranom" 
+             name="obranombre"
+             #obranombre="ngModel" 
+             required>
+  
+        <span class="form-text" *ngIf="obranombre.invalid && obranombre.touched">
+            Asignar un nombre a la obra es obligatorio
+        </span>  
+    </div>
+  
+  <br>
+
+  <div class="obrasbuttons">
+    <input type="submit" 
+           class="btn btn-primary" 
+           value="Guardar" 
+           [disabled]="form.invalid">   <!-- #form="ngForm" -->
+    <button type="button" 
+            class="btn btn-success" 
+            (click)="goBack()">Back
+    </button>
+  </div>
+
+ 
+	<strong id="error">{{errorMessage}}</strong>
+</form>

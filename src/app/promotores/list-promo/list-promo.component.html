@@ -1,37 +1,172 @@
 
-<h2>Listado de Promotores</h2>
+<br>
+<!-- Valor navBarSearchText: {{ navBarSearchText }} -->
+
+<!-- Filtro DENTRO del propio componente -->
+<!--
+<form id="filter">
+  <label>Filter promotores by name:</label>
+  <input type="text" [ngModelOptions]="{standalone:true}" [(ngModel)]="term" />
+</form>
+-->
+
+<div class="card border-dark">
+
+	 <!-- CARD HEADER -->
+	 <!-- <h3 class="card-header text-center"> Listado de promotores ( {{countPromotores}} promotores ) </h3> -->
+	  <div class="card-header text-center">
+
+			<div class="row">
+				<!-- Split the card in 3 columns to place elements where i want -->
+				<div class="col align-self-start">			
+				</div>
+
+				<div class="col align-self-center">
+						<h2> Listado de promotores </h2>
+				</div>
+
+				<div class="col align-self-end">
+					<nav class="navbar navbar-light">
+						
+						<ul class="navbar-nav mr-auto"> <!-- to move next navbar item to the right -->
+						</ul> 
+					
+						<ul class="navbar-nav bg-primary align-self-end">
+								<li class="nav-item" id="searchNavItem">
+										<input id="navBarInput" class="form-control text-left"
+													[ngModelOptions]="{standalone:true}"
+													[(ngModel)]="termSearch"									
+													type="search" placeholder="Search" aria-label="Search">
+								</li>
+						</ul>
+					</nav>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- CARD BODY -->
+		<div class="card-body text-dark text-center">
+			<h5 class="card-title">
+				Gestionamos un total de {{countPromotores}} promotores{{ misPromotoresMsg }}<br>
+			</h5>
+	
+			<!-- BOTON para crear un promotor, en 'routerLink' especificamos la ruta a cargar -->
+			<!--<div class="row justify-content-center"> -->
+			<a class="btn btn-outline-primary" routerLink="create">
+				<span class="fa fa-plus-circle fa-lg"></span> 
+				Crear Promotor
+			</a> 
+			 <!-- </div> -->
+
+		</div>
 
 
- <!--Boton para crear un promotor, en href especificamos la ruta a cargar (y por tanto la vista y controlador asociados )-->
-<div class="row justify-content-center"> 
-		<a class="btn btn-outline-secondary" routerLink="create">
-			<span class="fa fa-plus-circle fa-lg"></span> 
-			Crear Promotor
-	  </a>
-</div> 
+		<!-- CARD FOOTER -->
+		<div class="card-footer text-center">
+
+			<!-- MIS PROMOTORES con 2 RADIOBUTTON -->
+			<div class="form-group form-check-inline align-items-center">
+				<h6>Tipo de consulta de promotores</h6>
+				<div class="form-check">
+					<input class="form-check-input" 
+								(click)="selectRadioBtnPromotors('allPromos')"
+								type="radio" 
+								name="tipoCon" 
+								id="allPromosRadio" 
+								value="allPromos" checked>
+					<label class="form-check-label" for="allPromosRadio">
+						Mostrar todos los promotores
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input"  
+								(click)="selectRadioBtnPromotors('misPromos', 'amm11')"
+								type="radio" 
+								name="tipoCon" 
+								id="misPromoRadio" 
+								value="misPromos">
+					<label class="form-check-label" for="misPromoRadio">
+						Mostrar solo mis promotores
+					</label>
+				</div>
+			</div>
+
+		</div>
+</div>
+
 <br>
 
-<div class="table-responsive">
+<!-- MIS PROMOTORES con 1 CHECKBOX -->
+<!--
+<div class="form-group">
+		<input type="checkbox" 
+			id="checkbox_promo" 
+			[(ngModel)]="activado"  
+			(click)="getMyPromotors('amm11')"> 
+		<label for="checkbox_promo">Ver solo mis promotores </label><br/>
+</div>
+-->
+
+<!-- TABLE -->
+<!-- <div class="table table-responsive"> --> <!-- No me gusta: hace que no ocupe todo el ancho -->
 <table class="table table-striped table-hover table-sm">		
+
 	<thead class="thead-dark">
-			<th>Codigo</th>
-			<th>Nombre</th>
-			<th>Fecha Alta</th>
-			<th>Operaciones</th>    
+		<tr class=""> 
+			<th class="w-10">Fila
+			</th>
+			<th class="w-10" (click)="sort('codigop')">Codigo
+				 <!-- No meter clase "fa fa-sort" ya que sino no funciona, dejar solo 'fa'  -->
+					<span class="fa" 
+								*ngIf="sortKey=='codigop'" 
+								[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
+					</span>
+				</th>
+			<th class="w-10" (click)="sort('nombrep')">Nombre
+					<span class="fa" 
+								*ngIf="sortKey=='nombrep'" 
+								[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
+					</span>
+			</th>
+			<th class="w-10" (click)="sort('creado_el')">Fecha Alta
+					<span class="fa" 
+								*ngIf="sortKey=='creado_el'" 
+								[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
+					</span>
+			</th>
+			<th class="w-10">Operaciones</th>  
+	 	</tr> 
 	</thead>
-		
+
 	<tbody>
-			<tr *ngFor="let promotor of promotores" 
+		 <!-- <tr *ngFor="let promotor of promotores | appFilter:filterInput" -->
+		<!-- filtro orderBy { collection | orderBy: expression : reverse : caseInsensitive : comparator } -->
+			<tr class=""  *ngFor="let promotor of promotores 
+											| appFilter: termSearch
+											| appFilter: filterMisPromotores
+											| orderBy: sortKey: reverse: true 
+											| paginate: { itemsPerPage: numItemsPerPage, currentPage: p }
+											  as promoInNgFor; index as i; last as isLast"				
 					 ng-class-odd="'odd'" 
 					 ng-class-even="'even'">
 
-				<td>
+				<!--<span *ngIf="isLast">LENGTH: {{promoInNgFor.length}}</span> --> 
+
+				<!-- Cuenta pero no es bueno para todos los casos (además mete HTML que cambia tabla) -->
+				<!--Count:  {{promotor.parent.length }} -->
+				<td class="w-10">
+						{{i + 1}}
+						<div *ngIf="updateNumberPromotors(promoInNgFor.length)">
+						</div>	
+				</td> 
+				<td class="w-10">
 					<a [routerLink]="['/promotores/view', promotor._id]">{{promotor.codigop}}</a>
 				</td> 
-				<td>{{ promotor.nombrep }}</td>
-				<td>{{ promotor.creado_el | date:"MMM d, y ' a las ' h:mma"}}</td>
+				<td class="w-10">{{ promotor.nombrep }}</td>
+				<td class="w-10">{{ promotor.creado_el | date:"MMM d, y '('h:mma')'"}}</td>
 				
-				<td>
+				<td class="w-10">
 					<div class="button-group">
 						<a [routerLink]="['/promotores/edit', promotor._id]"
 								class="btn btn-outline-info"
@@ -42,18 +177,49 @@
 						</a>
 			
 						<a [routerLink]="['/promotores/delete', promotor._id]"
-								class="btn btn-outline-dark	"
+								class="btn btn-outline-danger	"
 								data-toogle="tooltip"
 								data-placement="top"
 								title="Borrar promotor">
 								<span class="fa fa-trash-o fa-lg"></span>
 						</a>
+
+						<a [routerLink]="['/obras', promotor._id]"
+								class="btn btn-outline-dark	"
+								data-toogle="tooltip"
+								data-placement="top"
+								title="Consultar obras del promotor">
+								<span class="fa fa-list-ol fa-md"></span>
+						</a>
+
 					</div>
 				</td>
+ 
 			</tr>
 	</tbody>
 </table> 
-</div>
+
+<!-- </div> -->
+
+<!-- PAGINATION -->
+<!-- incluye el html pero la paginacion NO funciona -->
+<!--
+<app-pagination ></app-pagination> 
+<app-pagination (onAlterPage)="receivePageNumber($event)"></app-pagination>
+-->
+
+<div class="row form-group">
+		<div class="text-center col-sm-12"> 
+
+				<pagination-controls (pageChange)="p = $event"
+				class="my-pagination"
+							previousLabel="Anterior"
+							nextLabel="Siguiente">
+				</pagination-controls>
+
+		</div>
+	</div>
+
 
 <div *ngIf="promotores && promotores.length === 0">
 	<!--	No promotors yet, why don't you <a [routerLink]="['/promotores/create']">create one</a>? -->

@@ -1,0 +1,63 @@
+
+<h1>EDIT Obra</h1>
+<br>
+
+<!-- creamos tabs que pondremos al comienzo de las páginas para "view" y "edit" -->
+<!-- en función de si estamos consultando o editando tenemos que fijar que clase esta activa -->
+<!-- Si viewObra = true va a asignar como “active” la clase “nav nav-tabs” -->
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': viewObra}" 
+          [routerLink]="['/obras/view', promotorId, obraId]"> Ver obra </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': editObra}" 
+        [routerLink]="['/obras/edit', promotorId, obraId]"> Editar obra </a>
+    </li>
+</ul>
+
+<br>
+
+<form (ngSubmit)="updateObra()" id="obraForm" name="editObraForm" #form="ngForm" novalidate>
+
+  <div class="form-group">  
+    <label for="obracod" class="control-label">Código Obra</label>
+    <input type="text" 
+            [(ngModel)]="obra.codigoobra" 
+            class="form-control" 
+            id="obracod" 
+            name="obracode" 
+            readonly>
+  </div>
+  
+  <div class="form-group">
+    <label for="obranom" class="control-label">Nombre Obra</label>
+    <input type="text" 
+           [(ngModel)]="obra.nombreobra" 
+           class="form-control" 
+           id="obranom" 
+           name="obranombre"
+           #obranombre="ngModel" 
+           required>
+
+      <span class="form-text" *ngIf="obranombre.invalid && obranombre.touched">
+          Asignar un nombre a la obra es obligatorio
+      </span>  
+  </div>
+  
+  <br>
+  
+  <div class="obrasbuttons">
+    <input type="submit" 
+           class="btn btn-primary" 
+           value="Actualizar" 
+           [disabled]="form.invalid">   <!-- #form="ngForm" -->
+    <button type="button" 
+            class="btn btn-success" 
+            (click)="goBack()">Back
+    </button>
+  </div>
+
+	<strong id="error">{{errorMessage}}</strong>
+</form>
