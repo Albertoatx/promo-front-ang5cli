@@ -1,0 +1,162 @@
+<p>
+  create-promo works!
+</p>
+
+
+<h1>New Promotor</h1>
+
+<form (ngSubmit)="savePromotor()" id="promotorForm" name="addPromotorForm" novalidate>
+
+  <!--
+	<div>
+		<label for="title">Title</label>
+		<div>
+			<input type="text" required [(ngModel)]="article.title" name="title" placeholder="Title">
+		</div>
+	</div>
+	<div>
+		<label for="content">Content</label>
+		<div>
+			<textarea type="text" required cols="30" rows="10" [(ngModel)]="article.content" name="content" placeholder="Content"></textarea>
+		</div>
+  </div>
+  
+-->
+
+  <div class="form-group">
+
+     {{diagnostic}}   
+
+    <label for="procod" class="control-label">Código Promotor</label>
+    <div *ngIf="pantallaAddP">
+       <input type="text" 
+              [(ngModel)]="promotor.codigop" 
+              class="form-control" 
+              id="procod" 
+              name="procode" 
+              >  
+    </div>
+
+    <div *ngIf="pantallaEditP">
+      <input type="text" 
+            [(ngModel)]="promotor.codigop" 
+            class="form-control" 
+            id="procod" 
+            name="procode" 
+            readonly>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="pronom" class="control-label">Nombre Promotor</label>
+    <input type="text" 
+           [(ngModel)]="promotor.nombrep" 
+           class="form-control" 
+           id="pronom" 
+           name="pronombre"
+           >
+
+  </div>
+  
+  <div class="form-group">
+      <label for="procif" class="control-label">CIF Promotor</label>
+      <input type="text" 
+             [(ngModel)]="promotor.cifp" 
+             class="form-control" 
+             id="procif" 
+             name="procifp"
+             >
+      
+  </div>
+ 
+  <div class="form-group">
+      <label for="inmovil" class="control-label">Movil Promotor</label>
+      <input class="form-control" 
+             type="telephone"  
+             [(ngModel)]="promotor.telefp"  
+             name="protlfn"   
+             placeholder="Introduzca un movil si lo desea (opcional)">
+  </div>
+
+  <div class="form-group">
+      <label for="inemail" class="control-label">Email promotor</label>
+      <input class="form-control" 
+             type="email"  
+             [(ngModel)]="promotor.emailp"
+             name="promail"    
+             >
+  </div> 
+
+
+  <fieldset ng-form="fAddress" name="prAddrForm"> 
+      <legend>Direccion del promotor</legend>
+  
+        <div class="form-group row">
+          <label for="incalle" class="col-sm-2 control-label">Calle</label>
+          <div class="col-sm-9">
+            <input class="form-control" 
+                  type="text"  
+                  name="procalle"   
+                  [(ngModel)]="promotor.direcp.callep"   
+                  placeholder="(opcional)">
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+    
+        <div class="form-group row">
+            <label for="inprov" class="col-sm-2 control-label">Provincia</label>
+            <div class="col-sm-4">
+              <input class="form-control" 
+                     type="text"  
+                     id="inprov"  
+                     [(ngModel)]="promotor.direcp.provincia"
+                     name="proprov"   
+                     >
+            </div>
+          </div>
+
+        <div class="form-group row">
+          <label for="inpueblo" class="col-sm-2 control-label">Localidad</label>
+          <div class="col-sm-4">
+            <input class="form-control" 
+                  type="text"  
+                  [(ngModel)]="promotor.direcp.pueblo"   
+                  name="propueblo"   
+                  >
+            
+          </div>
+        </div>
+  
+
+        <div class="form-group row">
+          <label for="incp" class="col-sm-2 control-label">Código postal</label>
+          <div class="col-sm-4">
+            <input class="form-control" 
+                  type="text" 
+                  [(ngModel)]="promotor.direcp.codpostal" 
+                  name="procodpst"
+                  min = 1000
+                  max = 52999
+                  minlength="5" maxlength="5"
+                  placeholder="(opcional, 01000 a 52999)">
+            
+          </div>
+        </div>
+  
+  </fieldset>
+  
+  <br>
+  <div class="obrasbuttons">
+    <input type="submit" 
+           class="btn btn-primary" 
+           value="Guardar" 
+           ng-disabled="false">
+    <button type="button" 
+            class="btn btn-success" 
+            (click)="goBack()">Back
+    </button>
+  </div>
+
+ 
+	<strong id="error">{{errorMessage}}</strong>
+</form>

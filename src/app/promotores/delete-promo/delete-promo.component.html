@@ -1,0 +1,24 @@
+<br>
+<!--
+<form role="form">
+  <p>¿Estás seguro de que deseas eliminar el Promotor con nombre: {{ promotor.nombrep }}?</p>
+  <div class="form-group">
+    <input type="submit" class="btn btn-danger" (click)="deletePromotor()" value="Yes">
+    <button (click)="goBack()" type="button" class="btn btn-default">No</button>
+  </div>
+</form>
+-->
+<div class="card text-center border-dark" style="max-width: 70rem;">
+  <h4 class="card-header "> Borrado de promotor </h4>
+
+  <div class="card-body text-dark">
+    <h5 class="card-title">¿Estás seguro de que deseas eliminar este promotor?</h5>
+    <p class="card-text"> * Nombre:  {{ promotor.nombrep }} </p>
+    <p class="card-text"> * Email:  {{ promotor.emailp  }} </p>
+    <p class="card-text"> * Provincia: {{ promotor.provincia }} </p>
+    <div class="form-group">
+        <input type="submit" class="btn btn-danger" (click)="deletePromotor()" value="Yes">
+        <button (click)="goBack()" type="button" class="btn btn-default">No</button>
+    </div>
+  </div>
+</div>

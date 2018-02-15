@@ -1,0 +1,125 @@
+<h1>VIEW Promotor</h1>
+ <br>
+<!-- creamos tabs que pondremos al comienzo de las páginas para "view" y "edit" -->
+<!-- en función de si estamos consultando o editando tenemos que fijar que clase esta activa -->
+<!-- Si viewPromotor = true va a asignar como “active” la clase “nav nav-tabs” -->
+<ul class="nav nav-tabs">
+    
+    <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': viewPromotor}" 
+        [routerLink]="['/promotores/view', promotor._id]"> View </a></li>
+
+    <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': editPromotor}" 
+        [routerLink]="['/promotores/edit', promotor._id]"> Edit </a></li>
+</ul>
+
+  <br>
+  
+  <div class="form-group">
+    <label for="title" class="control-label">Código Promotor</label>
+    <input type="text" [ngModel]="promotor.codigop" class="form-control" readonly>
+  </div>
+
+  <div class="form-group">
+    <label for="title" class="control-label">Nombre Promotor</label>
+    <input type="text" [(ngModel)]="promotor.nombrep" class="form-control" readonly>
+  </div>
+
+  <div class="form-group">
+    <label for="title" class="control-label">CIF Promotor</label>
+    <input type="text" [(ngModel)]="promotor.cifp" class="form-control" readonly>
+  </div>
+
+  <div class="form-group">
+    <label for="inmovil" class="control-label">Movil Promotor</label>
+    <input type="telephone" [(ngModel)]="promotor.telefp" class="form-control"  readonly>
+  </div>
+
+  <div class="form-group">
+    <label for="inemail" class="control-label">Email promotor</label>
+    <input type="email" [(ngModel)]="promotor.emailp" class="form-control"  readonly>
+  </div>
+
+  <br>
+  <fieldset ng-form="fAddress">
+    <legend>Direccion del promotor</legend>
+
+    <div class="form-group row">
+      <label for="incalle" class="col-sm-2 col-form-label">Calle</label>
+      <div class="col-sm-9">
+        <input class="form-control" 
+               type="text"
+               id="incalle"
+               [(ngModel)]="promotor.direcp.callep"   
+           	   readonly>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="form-group row">
+      <label for="inprov" class="col-sm-2 control-label">Provincia</label>
+      <div class="col-sm-4">
+        <input class="form-control" 
+               type="text"  
+               id="inprov"  
+               [(ngModel)]="promotor.direcp.provincia"   
+           	   readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="inpueblo" class="col-sm-2 control-label">Localidad</label>
+      <div class="col-sm-4">
+        <input class="form-control" 
+               type="text"  
+               id="inpueblo"
+               [(ngModel)]="promotor.direcp.pueblo"   
+           	   readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="incp" class="col-sm-2 control-label">Codigo postal</label>
+      <div class="col-sm-4">
+        <input class="form-control" 
+               type="text"  
+               id="incp"
+               [(ngModel)]="promotor.direcp.codpostal"   
+               readonly>
+      </div>
+
+      <!--
+      <div class="col-sm-3"></div>
+      <div class="col-sm-3">
+        <button type="button" 
+                class="btn btn-info glyphicon glyphicon-map-marker" id="btnGoogleMap" 
+                ng-show="addressFilled && (countClicks == 0)"
+                ng-click="iniciarMapaGoogle()"> Mostrar
+                
+        </button>
+      
+         <button type="button" 
+                class="btn btn-warning glyphicon glyphicon-resize-vertical" id="btnGoogleMap" 
+                ng-show="addressFilled && (countClicks > 0)"     
+                ng-click="toggleMap()">  Conmutar
+               
+        </button>
+     
+      </div>
+      --> 
+
+    </div>
+  </fieldset>
+
+  <!--
+  <div id="map" ng-show="viewMap"></div>
+    
+  <br>
+  <ng-include src="'views/notifications/error.html'"></ng-include>
+  -->
+
+  <div class="form-group">
+    <button (click)="goBack()" type="button" class="btn btn-success">Back</button>
+  </div>
+

@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+.container {
+  width: 85%; 
+}  
+
+fieldset{
+  padding: 5px;
+  margin: 3px;
+  border: 1px solid #8f746c;
+}
+
+fieldset .form-group{
+  padding: 5px;
+  margin: 3px;
+}
