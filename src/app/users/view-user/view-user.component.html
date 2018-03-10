@@ -1,0 +1,76 @@
+
+<h1>VIEW User</h1>
+ <br>
+<!-- creamos tabs que pondremos al comienzo de las páginas para "view" y "edit" -->
+<!-- en función de si estamos consultando o editando tenemos que fijar que clase esta activa -->
+<!-- Si viewUser = true va a asignar como “active” la clase “nav nav-tabs” -->
+
+
+<ul class="nav nav-tabs">
+    
+    <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': viewUser}" 
+        [routerLink]="['/users/view', user.username]"> Detalle </a></li>
+
+    <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': editUser}" 
+        [routerLink]="['/users/edit', user.username]"> Editar </a></li>
+</ul>
+
+<br>
+
+  <!-- Use class 'row' to have label and input in same line (this is different to Bootstrap3) -->
+  <div class="form-group row">
+    <label for="title" class="col-sm-2 text-right col-form-label">Usuario </label>
+    <div class="col-sm-10">
+      <input type="text" [ngModel]="user.username" class="form-control" readonly>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="title" class="col-sm-2 text-right control-label">Nombre </label>
+    <div class="col-sm-10">
+      <input type="text" [(ngModel)]="user.firstname" class="form-control" readonly>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="title" class="col-sm-2 text-right control-label">Apellidos</label>
+    <div class="col-sm-10">
+    <input type="text" [(ngModel)]="user.lastname" class="form-control" readonly>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label for="inmovil" class="col-sm-2 text-right control-label">Fecha Nacimiento</label>
+    <div class="col-sm-10">
+      <!--
+      <input type="text" [(ngModel)]="user.datebirth" class="form-control" readonly>
+      -->
+
+      <!-- Apply a filter inside 'value' to show the date in the format expected -->
+      <input type="text" class="form-control"  
+              value="{{user.datebirth | date:'dd/MM/yyyy'}}" readonly>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="inemail" class="col-sm-2 text-right control-label">Móvil</label>
+    <div class="col-sm-10">
+      <input type="telephone" [(ngModel)]="user.phone" class="form-control"  readonly>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="inemail" class="col-sm-2 text-right control-label">Email </label>
+    <div class="col-sm-10">
+      <input type="email" [(ngModel)]="user.email" class="form-control"  readonly>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="form-group">
+    <button (click)="goBack()" type="button" class="btn btn-success">Back</button>
+  </div>

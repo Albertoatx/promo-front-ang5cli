@@ -1,0 +1,116 @@
+
+<h1>EDIT Ususario</h1>
+<br>
+
+<!-- creamos tabs que pondremos al comienzo de las páginas para "view" y "edit" -->
+<!-- en función de si estamos consultando o editando tenemos que fijar que clase esta activa -->
+<!-- Si viewPromotor = true va a asignar como “active” la clase “nav nav-tabs” -->
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': viewUser}" 
+        [routerLink]="['/users/view', user.username]"> Detalle </a></li>
+
+    <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': editUser}" 
+        [routerLink]="['/users/edit', user.username]"> Editar </a></li>
+</ul>
+
+<br>
+
+<form (ngSubmit)="updateUser()" id="userForm" name="editUserForm" 
+      #form="ngForm"  
+      novalidate>
+
+  <!-- Use class 'row' to have label and input in same line (this is different to Bootstrap3) -->
+  <div class="form-group row">
+    <label for="username" class="col-sm-2 text-right col-form-label">Usuario </label>
+    <div class="col-sm-10">
+      <input type="text" 
+            [(ngModel)]="user.username" 
+            class="form-control"
+            name="username" 
+            readonly>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="ufirstname" class="col-sm-2 text-right control-label">Nombre </label>
+    <div class="col-sm-10">
+      <input type="text" 
+            [(ngModel)]="user.firstname" 
+            class="form-control" 
+            id="ufirstname" 
+            name="ufirstname"
+            required>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="ulastname" class="col-sm-2 text-right control-label">Apellidos</label>
+    <div class="col-sm-10">
+    <input type="text" 
+          [(ngModel)]="user.lastname" 
+          class="form-control" 
+          id="ulastname" 
+          name="ulastname"
+          >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="udatebirth" class="col-sm-2 text-right control-label">Fecha Nacimiento</label>
+    <div class="col-sm-10">
+      <input type="date" 
+            [(ngModel)]="user.datebirth" 
+            class="form-control" 
+            id="udatebirth" 
+            min="1920-01-01"       
+            max="{{ todayString }}"
+            name="udatebirth" 
+            >
+          <!--  max="{{maxDateString}}" 
+            <input type="text" class="form-control"  
+            value="{{user.datebirth | date:'yyyy-MM-dd'}}"
+            value="{{user.datebirth | date:'dd/MM/yyyy'}}" readonly> -->
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="uphone" class="col-sm-2 text-right control-label">Móvil</label>
+    <div class="col-sm-10">
+      <input type="telephone" 
+            [(ngModel)]="user.phone" 
+            class="form-control"  
+            id="uphone" 
+            name="uphone" 
+            >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="uemail" class="col-sm-2 text-right control-label">Email </label>
+    <div class="col-sm-10">
+      <input type="email" 
+            [(ngModel)]="user.email" 
+            class="form-control"  
+            id="uemail" 
+            name="uemail" 
+            required>
+    </div>
+  </div>
+
+  <br>
+  <div class="obrasbuttons">
+    <input type="submit" 
+           class="btn btn-primary" 
+           value="Actualizar" 
+           [disabled]="form.invalid">
+    <button type="button" 
+            class="btn btn-success" 
+            (click)="goBack()">Back
+    </button>
+  </div>
+
+	<strong id="error">{{errorMessage}}</strong>
+</form>

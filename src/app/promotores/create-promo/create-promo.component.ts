@@ -74,6 +74,7 @@ export class CreatePromoComponent implements OnInit {
     this._promotoresService
         .create(this.promotor)
         .subscribe((createdPromotor) => {
+                      console.log('Se ha creado el siguiente promotor');
                       console.log(createdPromotor);
                       this.submitted = true;
                       this._router.navigate(['/promotores/view', createdPromotor._id]);

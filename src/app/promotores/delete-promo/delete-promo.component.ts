@@ -54,7 +54,7 @@ export class DeletePromoComponent implements OnInit {
     this._promotoresService
         .delete(this.promotor._id)
         .subscribe(
-          deletedArticle => this._router.navigate(['/promotores']),
+          deletedPromotor => this._router.navigate(['/promotores']),
           error          => this.errorMessage = error
         );
 	}

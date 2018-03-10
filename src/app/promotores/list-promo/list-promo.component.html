@@ -164,7 +164,9 @@
 					<a [routerLink]="['/promotores/view', promotor._id]">{{promotor.codigop}}</a>
 				</td> 
 				<td class="w-10">{{ promotor.nombrep }}</td>
-				<td class="w-10">{{ promotor.creado_el | date:"MMM d, y '('h:mma')'"}}</td>
+		<!--		<td class="w-10">{{ promotor.creado_el | date:'yyyy/MM/dd'}}</td> -->
+		 		<td class="w-10">{{ promotor.creado_el | date:"MMM d, y '('h:mma')'"}}</td> 
+		
 				
 				<td class="w-10">
 					<div class="button-group">

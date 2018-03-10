@@ -1,32 +1,54 @@
-<p>
-  home works!
-</p>
+<br> 
 
-<div class="jumbotron">
-  <h1>Promotores y Obras</h1>
+<div class="jumbotron text-center">
+  <h1>Promotores y Obras (Home)</h1>
   <p class="lead">
-    <img src="../assets/images/obras-front01.jpg" class="img-responsive img-fluid">
+    <img src="../assets/images/obras-front01.jpg" class="img-responsive img-fluid rounded">
     <br>
   </p>
-  <br>
+  
+  <div class="mainbuttons">
+    <a  
+      class="btn btn-lg btn-outline-primary" 
+      [routerLink]="['/users']">
+      Iniciar sesion
+      <span class="fa fa-sign-in fa-lg"></span>
+    </a>
+    <a 
+      class="btn btn-lg btn-outline-danger" 
+      [routerLink]="['/users/create']">
+      Registrate!
+      <span class="fa fa-pencil fa-lg"></span>
+    </a>
+  </div>
+
+<!-- 
+  <i class="fa fa-sign-out"></i>  -->
+
   <!--
   <div class="mainbuttons">
-    <a ng-hide="authenticated" class="btn btn-lg btn-default" ng-href="#/user/login">Inicia sesion
+    <a ng-hide="authenticated" 
+      class="btn btn-lg btn-default" ng-href="#/user/login">Inicia sesion
       <span class="glyphicon glyphicon-log-in"></span>
     </a>
-    <a ng-hide="authenticated" class="btn btn-lg btn-success" ng-href="#/user/create">Registrate!
+    <a ng-hide="authenticated" class="btn btn-lg btn-success" 
+      ng-href="#/user/create">Registrate!
       <span class="glyphicon glyphicon-pencil"></span>
     </a>
   </div>
 -->
 </div>
 
-
-<div class="row marketing text-center">
-  <h2>Bienvenido a la aplicación de Gestión de Promotores y sus obras.</h2>
+<div class="container align-middle"> 
+  <div class="row marketing justify-content-center"> 
+  <!--  <h2>Bienvenido a la app de Gestión de Promotores y sus Obras</h2> -->
+    <h5>Para poder acceder has de estar registrado en la aplicación</h5>
+  </div>
 </div>
 
+<!--
 <div class="hero-unit text-center">
   <h1>AVISO</h1>
-  <p>Recuerde que para poder modificar datos de promotores y obras ha de estar registrado en la aplicación.</p>
+  
 </div>
+-->

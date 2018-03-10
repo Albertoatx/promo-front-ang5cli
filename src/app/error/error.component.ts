@@ -12,4 +12,8 @@ export class ErrorComponent implements OnInit {
   ngOnInit() {
   }
 
+  goBack() {
+    window.history.back();
+  }
+
 }

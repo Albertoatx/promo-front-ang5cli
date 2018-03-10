@@ -19,22 +19,19 @@ import { CreateObraComponent }        from './obras/create-obra/create-obra.comp
 import { DeleteObraComponent }        from './obras/delete-obra/delete-obra.component';
 import { ListObrasPromoComponent }    from './obras/list-obras-promo/list-obras-promo.component';
 
+import { ListUsersComponent }         from './users/list-users/list-users.component';
+import { CreateUserComponent }        from './users/create-user/create-user.component';
+import { EditUserComponent }          from './users/edit-user/edit-user.component';
+import { ViewUserComponent }          from './users/view-user/view-user.component';
+import { DeleteUserComponent }        from './users/delete-user/delete-user.component';
+
 // routing
 const routes: Routes = [
   {
     path: '', 
     component: HomeComponent
   },
-  /* OLD 
-  {
-    path: 'promotores', 
-    component: ListPromoComponent
-  },
-  {
-    path: 'promotores/view/:promotorId', 
-    component: ViewPromoComponent
-  },
-  */
+  // Promotores routing ------------------- 
   {
     path: 'promotores',
     //component: PromotoresComponent,  //NO HACE FALTA
@@ -77,6 +74,27 @@ const routes: Routes = [
       },
       { path: 'delete/:promotorId/:obraId', 
         component: DeleteObraComponent
+      }
+    ]
+  },
+  // Users routing -------------------
+  {
+    path: 'users',
+    children: [
+      { path: '', 
+        component: ListUsersComponent
+      },
+      { path: 'view/:username', //'username' has to be the name used in 'routerLink'
+        component: ViewUserComponent
+      },
+      { path: 'create', 
+        component: CreateUserComponent
+      },
+      { path: 'edit/:username', 
+        component: EditUserComponent
+      },
+      { path: 'delete/:username', 
+        component: DeleteUserComponent
       }
     ]
   },

@@ -1,0 +1,133 @@
+<h1>CREATE Ususario</h1>
+<br>
+<!--
+<form (ngSubmit)="savePromotor()" id="promotorForm" name="addPromotorForm" 
+      #form="ngForm" 
+      novalidate> -->
+
+<form (ngSubmit)="saveUser()" id="userCreateForm" name="createUserForm" 
+      #form="ngForm"  
+      novalidate>
+
+      <!--
+      <div class="form-group">     
+        <label for="procod" class="control-label">Código Promotor</label>
+           <input type="text" 
+                  [(ngModel)]="promotor.codigop" 
+                  class="form-control" 
+                  id="procod" 
+                  name="procode"
+                  #procode="ngModel" 
+                  required>  
+    
+            <span class="form-text" *ngIf="procode.invalid && procode.touched">
+              Codigo promotor es obligatorio
+            </span>  
+      </div>
+  -->
+
+  <!-- Use class 'row' to have label and input in same line (this is different to Bootstrap3) -->
+  <div class="form-group row">
+    <label for="usern" class="col-sm-2 text-right col-form-label">Usuario </label>
+    <div class="col-sm-10">
+      <input type="text" 
+            [(ngModel)]="user.username" 
+            class="form-control"
+            id="usern" 
+            name="username" 
+            required>
+    </div>
+  </div>
+
+  <div class="form-group row">
+	  <label for="inpass" class="col-sm-2 text-right control-label">Password </label>
+	  <div class="col-sm-10">
+	    <input class="form-control" 
+             type="password" 	
+             [(ngModel)]="user.password" 
+             id="inpass"
+						 name="password"  
+	 		       required>
+				
+	  </div>
+	</div>
+
+  <div class="form-group row">
+    <label for="ufirstname" class="col-sm-2 text-right control-label">Nombre </label>
+    <div class="col-sm-10">
+      <input type="text" 
+            [(ngModel)]="user.firstname" 
+            class="form-control" 
+            id="ufirstname" 
+            name="ufirstname"
+            required>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="ulastname" class="col-sm-2 text-right control-label">Apellidos</label>
+    <div class="col-sm-10">
+    <input type="text" 
+          [(ngModel)]="user.lastname" 
+          class="form-control" 
+          id="ulastname" 
+          name="ulastname"
+          >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="udatebirth" class="col-sm-2 text-right control-label">Fecha Nacimiento</label>
+    <div class="col-sm-10">
+      <input type="date" 
+            [(ngModel)]="user.datebirth" 
+            class="form-control" 
+            id="udatebirth" 
+            min="1920-01-01"       
+            max="{{ todayString }}"
+            name="udatebirth" 
+            required>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="uphone" class="col-sm-2 text-right control-label">Móvil (opcional) </label>
+    <div class="col-sm-10">
+      <input type="telephone" 
+            [(ngModel)]="user.phone" 
+            class="form-control"  
+            id="uphone" 
+            name="uphone" 
+            >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="uemail" class="col-sm-2 text-right control-label">Email </label>
+    <div class="col-sm-10">
+      <input type="email" 
+            [(ngModel)]="user.email" 
+            class="form-control"  
+            id="uemail" 
+            name="uemail" 
+            required>
+    </div>
+  </div>
+
+  <br>
+  <div class="obrasbuttons">
+    <input type="submit" 
+           class="btn btn-primary" 
+           value="Registrarse" 
+           [disabled]="form.invalid">
+    <button type="button" 
+            class="btn btn-success" 
+            (click)="goBack()">Back
+    </button>
+  </div>
+
+  <!-- <strong id="error">{{errorMessage}}</strong> -->
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage"   class="alert alert-danger"> {{ errorMessage }}</div>
+
+</form>

@@ -1,0 +1,15 @@
+
+<div class="card text-center border-dark" style="max-width: 70rem;">
+  <h4 class="card-header "> Borrado de usuario </h4>
+
+  <div class="card-body text-dark">
+    <h5 class="card-title">¿Estás seguro de que deseas eliminar al usuario {{ user.username }} ?</h5>
+    <p class="card-text"> * Nombre:  {{ user.firstname }} </p>
+    <p class="card-text"> * Apellidos:  {{ user.lastname  }} </p>
+    <p class="card-text"> * Email: {{ user.email }} </p>
+    <div class="form-group">
+        <input type="submit" class="btn btn-danger" (click)="deleteUser()" value="Yes">
+        <button (click)="goBack()" type="button" class="btn btn-default">No</button>
+    </div>
+  </div>
+</div>

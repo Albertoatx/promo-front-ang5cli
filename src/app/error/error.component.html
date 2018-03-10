@@ -1,7 +1,18 @@
-<p>
-  error works!
-</p>
 
-<div>
+<div class="text-center">
   <img src="../assets/images/error.jpg">
 </div>
+
+<div class="jumbotron text-center"> 
+    <h2> La direccion no existe o no esta disponible </h2>
+    <p>
+      Para volver al inicio pinche <a [routerLink]="['']">aquí</a> o si quiere 
+      volver a la pantalla anterior pulse
+      <button type="button" 
+        class="btn btn-success" 
+        (click)="goBack()">Regresar
+    </button>
+    </p>
+</div>
+
+

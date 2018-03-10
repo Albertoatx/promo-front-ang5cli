@@ -19,9 +19,78 @@ body {
   text-align: center;
 } */
 
+.fa-building{ /* font awesome 'building' icon */
+  color: white;
+  padding-right: 5px;
+}
+
+.footer{
+  margin-top: 5px;
+  color: white;
+  background-color: #343A40;
+  padding-top: 5px;
+}
+
+/* Home partial */
+.jumbotron {
+  padding: 1rem 0.5rem;
+  margin-bottom: 2rem;
+  background-color: #f8f5f2;
+}
+
+.jumbotron .btn {
+  font-size: 18px;
+  padding: 15px 20px;
+  margin: 0px 10px;
+}
+
+.jumbotron .mainbuttons {   /* mio */
+  display: inline-block;
+}
+
+
 .obrasbuttons {   /* para mostrar varios botones en fila al consultar listado de obras */
   display: inline;
 }
+
+/* to give centered vertical align to the card title and user image in user list screen */
+#card-title-userlist, #card-img-userlist{
+  /*margin-top: 15px;*/
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); 
+} 
+
+#user-card{
+  margin: 6% auto;
+  border: 1px solid #8f746c;
+  /* background: #f3f3f3; */
+}
+
+#user-card img{
+  max-width: 50%;
+  /* border-radius: 50px; */
+}
+
+#user-card .card-header{
+ /* background: #343A40; */ /* same color than navbar */
+    background: #f0edec
+}
+
+#user-card .card-block{
+  margin: 5% auto;
+}
+
+.card .card-header{
+  background: #f0edec;
+}
+
+/* style the 'active' class for the dropdown used to choose sorting */
+a.dropdown-item.active{ 
+  color: rgb(206, 90, 7);
+  background-color: #f0edec;
+}
+
 
 /*----------*/
 fieldset{
@@ -35,6 +104,30 @@ fieldset .form-group{
   margin: 3px;
   border: 0px solid white;
 }
+
+input[type="email"], input[type="telephone"] {
+  display: block; /* separate lines for each one */
+  margin-bottom: 15px;
+  padding: 8px 10px 8px 50px; /* 50 px to give space for images */
+  border: 1px solid #ced4da; /* so that it won't lose the border */
+  border-radius: 4px;
+  background: url(assets/images/inputs.png) no-repeat;
+ /* color: #222; */ /* the color of the text we write in the input fields */
+  float: left; /* tutorial6 */
+  clear: both;
+}
+
+/* the black envelope in the image */
+input[type="email"]{
+  background-position: 7px 8px;  
+}
+
+/* the black phone in the image */
+input[type="telephone"]{
+  background-position: 7px -58px; 
+}
+
+
 
 /* ----------*/
 /*
@@ -161,6 +254,14 @@ We occasionally use media queries that go in the other direction
     vertical-align: top;
   }
 
+  /* avoid dropdown menu covering content when collapsing navbar */
+  /* DOES NOT WORK
+  .dropdown-menu.show {
+    top: 0;
+    border-width: 0 0 1px;
+    position:static; 
+  }
+*/
   .marketing,
   .footer {
     padding-left: 0.5px;

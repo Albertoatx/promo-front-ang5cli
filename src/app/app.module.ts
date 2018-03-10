@@ -12,6 +12,7 @@ import { OrderModule }        from 'ngx-order-pipe';
 import { AppRoutingModule }   from './app-routing.module';
 import { PromotoresModule }   from './promotores/promotores.module';
 import { ObrasModule }        from './obras/obras.module';
+import { UsersModule }        from './users/users.module';
 
 // components
 import { AppComponent }       from './app.component';
@@ -40,7 +41,8 @@ import { PassDataService }       from '../app/shared/pass-data.service';
     FormsModule,
     AppFilterModule,
     OrderModule,
-    ObrasModule
+    ObrasModule,
+    UsersModule
   ],
   providers: [PassDataService],
   bootstrap: [AppComponent]
