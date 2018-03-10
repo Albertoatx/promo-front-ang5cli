@@ -46,7 +46,7 @@ export class ListUsersComponent implements OnInit {
         .list()
         .subscribe(
            (users) => { 
-             console.log(users);
+             //console.log(users);
              this.users      = users; 
              this.countUsers = this.users.length;
            }
@@ -57,7 +57,7 @@ export class ListUsersComponent implements OnInit {
     //this.filterInput = this._passDataService.sharedData.navBarSearchText;
   }
 
-  // sort promotores -----------------------------------------------------------
+  // sort users  -----------------------------------------------------------
   sort(key){
     this.sortKey = key;
     this.reverse  = !this.reverse;

@@ -1,8 +1,3 @@
-<p>
-  create-promo works!
-</p>
-
-
 <h1>New Promotor</h1>
 <!-- "ngSubmit" does a little bit more than "submit": cancels the default action of the form -->
 <!--           so it isn't going to refresh our page when we submit the form -->
@@ -10,9 +5,10 @@
       #form="ngForm" 
       novalidate>
 
-   <!-- {{diagnostic}} -->
+  <!-- {{diagnostic}} -->
 
-   Is the form valid? {{ form.valid }}
+  <!-- Is the form valid? {{ form.valid }} -->
+
   <!--
   <div class="form-group">
   
@@ -33,9 +29,9 @@
           Codigo promotor es obligatorio
         </span>  
         
-        Valid:   {{ procode.valid }}  <br>
+      <!--  Valid:   {{ procode.valid }}  <br>
         Touched: {{ procode.touched }} <br>
-        
+      --> 
     </div>
 
   </div>
@@ -54,10 +50,10 @@
       <span class="form-text" *ngIf="pronombre.invalid && pronombre.touched">
             Nombre del promotor es obligatorio
       </span>  
-
+      <!--
       Valid:   {{ pronombre.valid }}  <br>
       Touched: {{ pronombre.touched }} <br>
-      
+      -->
   </div>
   
   <div class="form-group">
@@ -112,8 +108,14 @@
                      type="text"  
                      id="inprov"  
                      [(ngModel)]="promotor.direcp.provincia"
-                     name="proprov"   
-                     >
+                     name="proprov" 
+                     #proprov="ngModel"  
+                     required>
+            
+                <span class="form-text" *ngIf="proprov.invalid && proprov.touched">
+                      La provincia del promotor es obligatoria
+                </span>  
+            
             </div>
           </div>
 
@@ -148,6 +150,24 @@
   </fieldset>
   
   <br>
+
+  <div class="row">
+    <div class="col-sm-11 text-center">
+      <input type="submit" 
+            class="btn btn-primary confirmButton" 
+            value="Guardar" 
+            [disabled]="form.invalid">
+    </div>
+
+    <div class="col-sm-1">
+        <button type="button" 
+                class="btn btn-success" 
+                (click)="goBack()">Back
+        </button>
+    </div>
+  </div>
+
+  <!--
   <div class="obrasbuttons">
     <input type="submit" 
            class="btn btn-primary" 
@@ -158,7 +178,7 @@
             (click)="goBack()">Back
     </button>
   </div>
-
+  -->
  
 	<strong id="error">{{errorMessage}}</strong>
 </form>

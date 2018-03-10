@@ -17,11 +17,48 @@ body {
   right: 0px;
   margin-bottom: 0px;
   text-align: center;
-} */
+} 
+*/
 
-.fa-building{ /* font awesome 'building' icon */
+/* Sticky footer ----------------------------------------------------------*/
+/* (force footer to stay on bottom on pages with little content) */ 
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+.main {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -140px; 
+}
+.main:after {
+  content: "";
+  display: block;
+}
+.footer, .main:after {
+  height: 140px; 
+}
+
+
+/* styles in the header (navbar) and footer ----------------------------------*/
+
+.fa-building, .fa-user-circle{ /* font awesome 'building' icon */
   color: white;
   padding-right: 5px;
+}
+
+/* to center the icon in the navbar */
+.fa-user-circle{
+  margin-top: 12px;
+}
+
+#navBarLoginImage{
+  max-width: 100%;
+  height: 40px;
+  padding-right: 4px;
 }
 
 .footer{
@@ -31,7 +68,27 @@ body {
   padding-top: 5px;
 }
 
-/* Home partial */
+li.nav-text{
+  font-size: 17px;
+  padding: 1px 10px;
+}
+
+li.nav-text:hover{
+  text-decoration: underline;
+  
+}
+
+a.nav-link:hover{
+  color: orange !important;
+  cursor: pointer;
+}
+
+li a.active{
+   color: rgb(224, 184, 72) !important; 
+}
+
+
+/* Home partial ----------------------------------------------------------*/
 .jumbotron {
   padding: 1rem 0.5rem;
   margin-bottom: 2rem;
@@ -48,11 +105,63 @@ body {
   display: inline-block;
 }
 
-
-.obrasbuttons {   /* para mostrar varios botones en fila al consultar listado de obras */
-  display: inline;
+/* to style the logout button */
+#btnSignOut{
+  color: #DC3D4D;
 }
 
+#btnSignOut:hover{
+  color: white;
+}
+
+/* Styles for Login screen ---------------------------------------------*/
+.form-signin {
+  max-width: 380px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* ----------------------------------------------------------------------------*/
+
+.obrasbuttons {   /* para mostrar varios botones en fila al consultar listado de obras */
+  display: inline; 
+}
+
+.confirmButton{
+  margin-left: 85px;
+  margin-bottom: 20px;
+}
+
+/* Card styles ---------------------------------------------------------------*/
 /* to give centered vertical align to the card title and user image in user list screen */
 #card-title-userlist, #card-img-userlist{
   /*margin-top: 15px;*/
@@ -92,7 +201,7 @@ a.dropdown-item.active{
 }
 
 
-/*----------*/
+/* form styling --------------------------------------------------------------*/
 fieldset{
   padding: 5px;
   margin: 3px;
@@ -239,7 +348,7 @@ We occasionally use media queries that go in the other direction
   }
 
   .img-thumbnail {
-    max-width: 100%; 
+    max-width: 90%; 
   }
 
   /* VERY IMPORTANT! to avoid the table going out container width and overflowing */

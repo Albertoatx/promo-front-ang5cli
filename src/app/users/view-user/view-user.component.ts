@@ -8,7 +8,8 @@
 import { Component, OnInit }        from '@angular/core';
 import { Router, ActivatedRoute }   from '@angular/router';
 
-import { UsersService }        from '../users.service';
+import { UsersService }             from '../users.service';
+import { AuthService }              from '../auth.service';
 
 @Component({
   selector: 'app-view-user',
@@ -25,6 +26,7 @@ export class ViewUserComponent implements OnInit {
 
   // inject dependencies needed
   constructor(private _usersService: UsersService,
+              private _authService: AuthService,
               private _router:Router,
               private _activatedRoute: ActivatedRoute) {             
   }
@@ -52,6 +54,11 @@ export class ViewUserComponent implements OnInit {
 				);
 		});
   } // ngOnInit()
+
+  //
+  get isAdmin() { 
+    return this._authService.isAdmin();
+  }
 
   ngOnDestroy() {
 		this.paramsObserver.unsubscribe();

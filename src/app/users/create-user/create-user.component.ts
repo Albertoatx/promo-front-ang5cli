@@ -2,6 +2,7 @@ import { Component, OnInit }  from '@angular/core';
 import { Router }             from '@angular/router';
 
 import { UsersService }       from '../users.service';
+import { AuthService }        from '../auth.service';
 
 @Component({
   selector: 'app-create-user',
@@ -18,6 +19,7 @@ export class CreateUserComponent implements OnInit {
   errorMessage:   string = '';
 
   constructor(private _usersService: UsersService,
+              private _authService: AuthService,
               private _router: Router) { 
   }
 
@@ -69,25 +71,32 @@ export class CreateUserComponent implements OnInit {
     this.successMessage = '';
     this.errorMessage   = '';
 
-    console.log('Datos del usuario a GUARDAR ');
-    console.log(this.user);
+    //console.log('Datos del usuario a GUARDAR ');
+    //console.log(this.user);
     
     this._usersService
         .create(this.user)
         .subscribe((createdUser) => {
                       //$rootScope.authenticated = true; 
                       //$rootScope.current_user = res.data.username; 
+
                       this.successMessage = 'Nuevo usuario registrado!';
-                      console.log('Se ha creado el siguiente usuario ');
-                      console.log(createdUser); //JODER! NO ENTIENDO porque 'undefined' (en PROMOTORES hago lo mismo y si saca)
+                      //console.log('Se ha creado el siguiente usuario ');
+                      //console.log(createdUser); //NO ENTIENDO porque 'undefined' (en PROMOTORES hago lo mismo y si saca)
                       
                       //this._router.navigate(['/users']);
-                      this._router.navigate(['/users/view', createdUser.username]);
+                      //this._router.navigate(['/users/view', createdUser.username]);
+
+                      if (this._authService.isAdmin())
+                        this._router.navigate(['/users/view', createdUser.username]); 
+                      else
+                        this._router.navigate(['/users/login']); //envio a pantalla LOGIN
                   },
                    (error) =>  {
                       console.log('Error en saveUser component');
                     // console.log(error);
                       this.errorMessage = error;
+                      this.clearMessages();
                   }
         ); 
   }
@@ -95,12 +104,19 @@ export class CreateUserComponent implements OnInit {
   //----------------------------------------------------------------------------
   goBack() {
     //window.history.back();
-    this._router.navigate(['/users']);
+    this._router.navigate(['/']); //llevo al home de la app
   }
 
   //to check ngModel double binding is working
   get diagnostic() {
     return JSON.stringify(this.user);
+  }
+
+  // clear messsages after 5 seconds
+  clearMessages() {
+    setTimeout(() => {
+      this.errorMessage   = '';
+    }, 5000);
   }
 
 }

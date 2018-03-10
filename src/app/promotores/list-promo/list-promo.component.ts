@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { PromotoresService }      from '../promotores.service';
+import { AuthService }            from '../../users/auth.service';
 import { PassDataService }        from '../../shared/pass-data.service';
 
 import { AppFilterPipe }          from '../../app-filter.pipe';
@@ -20,15 +21,15 @@ export class ListPromoComponent implements OnInit {
   promotores: any;   // to store the list of promotores
   errorMessage: string;
   countPromotores: number;
-  //countVisualized: number;
+  countVisualized: number;
   countMisPromotores: number = 0;
 
   // filtering
   filterInput: string;
 
   // sorting
-  sortKey: string = ''; //set default order column 
-  reverse: boolean = false;
+  sortKey: string = 'creado_el'; //set default order column 
+  reverse: boolean = true;
 
   // pagination
   numItemsPerPage: number = 10;
@@ -46,6 +47,7 @@ export class ListPromoComponent implements OnInit {
 
   // Constructor ---------------------------------------------------------------
   constructor(private _promotoresService: PromotoresService, 
+              private _authService: AuthService, 
               private _passDataService: PassDataService) { 
   }
 
@@ -58,7 +60,7 @@ export class ListPromoComponent implements OnInit {
              this.promotores      = promotores; 
              this.promotoresCopy  = this.promotores; // hago la copia (sera necesario para "mis promotores")
              this.countPromotores = this.promotores.length;
-             //this.countVisualized = this.countPromotores;
+             this.countVisualized = this.countPromotores;
            }
         );
 
@@ -67,24 +69,33 @@ export class ListPromoComponent implements OnInit {
     this.filterInput = this._passDataService.sharedData.navBarSearchText;
   }
 
+  // To get username logged (for use in "MisPromotores") -----------------------
+  get currentUsername(){ 
+    return this._authService.getCurrentUser(); 
+  }
+
   // sort promotores -----------------------------------------------------------
   sort(key){
     this.sortKey = key;
     this.reverse  = !this.reverse;
   }
 
+  // To try to isolate 'pagination' - DOES NOT WORK 
   // this funtion is going to fire when my custom event "onAlterPage" happens
+  /*
   receivePageNumber(evt){
     alert('i am trying to alter page number');
     console.log(evt);
     this.p = evt;
     console.log("page number = " + this.p);
   }
+  */
 
   // ---------------------------------------------------------------------------
-  // Shabby way of counting real amount of promotors visualized 
+  // Shabby way of counting real amount of promotors visualized - DOES NOT WORK!
   // (we can't assign an ngFor local variable to a global one directly, so an
   //  alternative way is calling a function with ngIf that always returns true)
+  /*
   updateNumberPromotors(numberOfPromos) {
     console.log('entra en updateNumberPromotors con numberOfPromos = ' + numberOfPromos);
 
@@ -96,28 +107,36 @@ export class ListPromoComponent implements OnInit {
 
     return true;
   }
-  
+  */
+
   // ---------------------------------------------------------------------------
   // OPTION RADIOS: Depending on "radio button" show ALL promotores or only MY promotores  
   selectRadioBtnPromotors(queryType, current_user) { 
+    //console.log(current_user);
 
     switch (queryType) {
       case 'allPromos':
-          this.filterMisPromotores = '';
-          //this.misPromotoresMsg = ' ';
-          this.flagMisPromos = false;
+          // Using a filter in the *ngFor
+          //this.filterMisPromotores = '';
+          //this.flagMisPromos = false;
+          //this.misPromotoresMsg = '';
 
-          //this.promotores = this.promotoresCopy;
-          //this.countVisualized = this.promotores.length;
+          // Without using a filter
+          this.promotores = this.promotoresCopy;
+          this.countVisualized = this.promotores.length;
+          this.misPromotoresMsg = '';
           break;
   
       case 'misPromos':
-          console.log('Dentro de RADIO_BUTTON mis promotores');
-          this.filterMisPromotores = current_user;
-          this.flagMisPromos = true;
+          //console.log('Dentro de RADIO_BUTTON mis promotores');
 
+          // Using a filter in the *ngFor
+          //this.filterMisPromotores = current_user;
+          //this.flagMisPromos = true;
+
+          // Without using a filter
           // User has not promotors OR is the first time it search into the Array
-          /*
+          
           if (this.misPromotores.length === 0) {
             //console.log('El usuario no tiene promotores');
 
@@ -138,13 +157,17 @@ export class ListPromoComponent implements OnInit {
             this.promotores = this.misPromotores;
           } 
           
-          this.countVisualized = this.promotores.length;
-          */
-
+          //this.countVisualized = this.promotores.length;
+          this.countMisPromotores = this.promotores.length;;
+          this.misPromotoresMsg = ' (tu usuario ha creado ' + this.countMisPromotores  + ')';
+          
           break;
 
     } // switch
   } // queryPromotors
+
+
+
 
   // ---------------------------------------------------------------------------
   //OPCION CHECKBOX: Trabajar en memoria, asi no vamos al servidor por "mis promotores

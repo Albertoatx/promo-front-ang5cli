@@ -32,14 +32,14 @@ export class CreateObraComponent implements OnInit {
     this.paramsObserver = this._activatedRoute.params.subscribe(params => {
         
       this.promotorId = params['promotorId'];
-      console.log('Id del promotor al que quiero añadir obras: ' + this.promotorId);
+      //console.log('Id del promotor al que quiero añadir obras: ' + this.promotorId);
     });
   }
 
   // --------------------------------------------------------------------------
   saveObra() {
-    console.log('Datos de la obra a GUARDAR');
-    console.log(this.obra);
+    //console.log('Datos de la obra a GUARDAR');
+    //console.log(this.obra);
   
     this.obraId = this.obra.codigoobra; // lo que metamos en el formulario (lo quiero para redireccion)
     this._obrasService
@@ -47,8 +47,8 @@ export class CreateObraComponent implements OnInit {
         .subscribe((createdObra) => {
                   //El http.post nos devuelve TODO el promotor donde se ha añadio la obra
                   // (un nombre mas significativo seria 'updatedPromotor')
-                      console.log('DATOS DE LA OBRA CREADA');
-                      console.log(createdObra);
+                      //console.log('DATOS DE LA OBRA CREADA');
+                      //console.log(createdObra);
                       this.submitted = true;
                       this._router.navigate(['/obras/view', this.promotorId, this.obraId]);
                   },

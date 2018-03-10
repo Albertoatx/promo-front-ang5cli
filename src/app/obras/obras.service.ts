@@ -33,7 +33,7 @@ export class ObrasService {
   list(): Observable<any> {
 
 		return this._http
-			.get(this._baseURL)
+			.get(this._baseURL, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
   }
@@ -43,7 +43,7 @@ export class ObrasService {
   listObrasPromotor(promotorId: string): Observable<any> {
 
 		return this._http
-			.get(`${this._baseURL}/${promotorId}`)
+			.get(`${this._baseURL}/${promotorId}`, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
   }
@@ -56,7 +56,7 @@ export class ObrasService {
     //console.log(finalURL); 
     
 		return this._http
-			.get(`${this._baseURL}/${promotorId}/${obraId}`)
+			.get(`${this._baseURL}/${promotorId}/${obraId}`, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
   }
@@ -65,7 +65,7 @@ export class ObrasService {
   //      $http.post('/api/promociones/add/' + id, obraData);
 	create(promotorId: string, obra: any): Observable<any> {
 		return this._http
-			.post(`${this._baseURL}/add/${promotorId}`, obra)
+			.post(`${this._baseURL}/add/${promotorId}`, obra, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
   } 
@@ -79,7 +79,7 @@ export class ObrasService {
     //console.log(obraId);
 
 		return this._http
-			.put(`${this._baseURL}/${promotorId}/${obraId}`, obra)
+			.put(`${this._baseURL}/${promotorId}/${obraId}`, obra, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError); 
 	}
@@ -93,7 +93,7 @@ export class ObrasService {
 
 		return this._http
     //.delete(`${this._baseURL}/${promotorId}/${obraId}`) //ojo, "POST" no DELETE
-      .post(`${this._baseURL}/${promotorId}/${obraId}`, obra) //ojo, "POST" no DELETE
+      .post(`${this._baseURL}/${promotorId}/${obraId}`, obra, this._options) //ojo, "POST" no DELETE
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
   }	 

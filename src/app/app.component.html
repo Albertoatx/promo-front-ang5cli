@@ -1,87 +1,6 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<!--
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
--->
-
-<!-- fijo arriba la barra de navegacion -->
-<!-- Si el navegador no esta maximizado la barra navegacion se muestra como un boton que despliega opciones-->
-<!--
-<div class="header">
-  <div class="navbar navbar-default navbar-fixed-top" role="navigation"> 
-    <div class="container">
-      <div class="navbar-header">
-      
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-
-        <a class="navbar-brand" href="#/">Gestion promotores</a>
-      </div>
-
-      <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#/">
-             <span class="glyphicon glyphicon-home"></span> Home</a></li>
-          <li><a ng-href="#">Promotores</a></li>
-          <li><a ng-href="#">Promociones</a></li>
-          <li><a ng-href="#">
-            <span class="glyphicon glyphicon-cog"></span> Administracion</a></li>
-        </ul>
-
-        <p class="navbar-right navbar-text">
-           <a href="#">Login</a> or <a href="#">Registro</a></p>
-        <p class="navbar-right navbar-text">
-             <a href="#" ng-click="signout()">Cerrar sesión</a></p>
-        <p class="navbar-right navbar-text">
-             <i class="glyphicon glyphicon-user"></i>
-             <a href="#">{{current_user}}</a></p>
-      </div>
-    </div>
-  </div>
-</div>
--->
-
 <div class="header">
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <!-- 'fixed-top' to keep navbar on top -->
     <i class="fa fa-building fa-2x"></i>
     <a class="navbar-brand" routerLink="/" 
       routerLinkActive="active"
@@ -104,21 +23,21 @@
             <span class="sr-only">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="isLoggedIn" class="nav-item">
           <a class="nav-link" 
             routerLink="/promotores" 
             routerLinkActive="active">
             <i class="fa fa-user fa-lg"></i>
             Promotores</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="isLoggedIn" class="nav-item">
             <a class="nav-link" 
               routerLink="/obras" 
               routerLinkActive="active">
               <i class="fa fa-wrench fa-lg"></i>
               Obras</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="isLoggedIn && isAdmin" class="nav-item">
             <a class="nav-link" 
               routerLink="/users" 
               routerLinkActive="active">
@@ -127,11 +46,50 @@
         </li>
       </ul>
 
-
-      <!--  (click)="storeNavData()" -->
-      
+   
+      <!-- navbar elements place on the right -->
       <ul class="navbar-nav">
-        <li class="nav-item">
+      
+        <li *ngIf="!isLoggedIn" class="nav-item nav-text">
+          
+            <a class="nav-link"
+              [routerLink]="['/users/login']">
+              Login
+            </a>
+
+            <!--
+            or
+            <a class="nav-link"
+              [routerLink]="['/users/create']">
+              Registro
+            </a>
+            -->
+        </li>
+
+        <!-- <i class="fa fa-user-circle fa-lg"></i> -->
+        <li *ngIf="isLoggedIn" class="row nav-item nav-text align-middle">
+
+            <img id="navBarLoginImage" class="rounded-circle" 
+              src="../../../assets/images/user-icon04.png">
+            
+            <a class="nav-link"
+            [routerLink]="['/users/view', currentUsername]">
+            {{currentUsername}}
+            </a>
+        </li>
+
+         <!-- <li *ngIf="authenticated" class="nav-item nav-text"> -->
+        <li *ngIf="isLoggedIn" class="nav-item nav-text">
+            <a class="nav-link"
+              (click)="signout()">
+              Cerrar sesión
+            </a>
+        </li>
+
+        <!-- Search input in nav bar, maybe for the future -->
+         <!--  (click)="storeNavData()" -->
+        <!--
+        <li *ngIf="isLoggedIn" class="nav-item">
             <input class="form-control"
                   [ngModelOptions]="{standalone:true}"
                   [(ngModel)]="filterInput"
@@ -139,7 +97,10 @@
                 
                    type="search" placeholder="Search" aria-label="Search">
         </li>
+       -->
+
       </ul>
+
     </div>
   </nav>
 

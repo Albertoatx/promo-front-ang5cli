@@ -114,7 +114,28 @@
     </div>
   </div>
 
+    <!-- <strong id="error">{{errorMessage}}</strong> -->
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage"   class="alert alert-danger text-center"> {{ errorMessage }}</div>
+  
   <br>
+  <!-- To have one button in the center (styles) and the other on the right -->
+  <div class="row">
+        <div class="col-sm-11 text-center">
+            <input  type="submit" 
+                    class="btn btn-primary confirmButton" 
+                    value="Registrarse" 
+                    [disabled]="form.invalid">   <!-- #form="ngForm" -->
+        </div>
+    
+        <div class="col-sm-1">
+            <button type="button" 
+                    class="btn btn-success" 
+                    (click)="goBack()">Back
+            </button>
+        </div>
+  </div>
+  <!--
   <div class="obrasbuttons">
     <input type="submit" 
            class="btn btn-primary" 
@@ -125,9 +146,6 @@
             (click)="goBack()">Back
     </button>
   </div>
-
-  <!-- <strong id="error">{{errorMessage}}</strong> -->
-  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
-  <div *ngIf="errorMessage"   class="alert alert-danger"> {{ errorMessage }}</div>
+  -->
 
 </form>

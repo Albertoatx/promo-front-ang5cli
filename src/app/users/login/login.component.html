@@ -1,3 +1,38 @@
-<p>
-  login works!
-</p>
+
+<div class="container">
+  <form (ngSubmit)="login(credentials)" class="form-signin" id="login" role="form"  
+        #form="ngForm">
+        <h2 class="form-signin-heading">Inicia sesión</h2>
+
+        <label>Login</label>
+        <input type="text"      class="form-control" placeholder="Usuario"  
+               [(ngModel)]="credentials.username"
+               name="login"
+               required><br>
+
+        <label>Password</label>
+        <input type="password"  class="form-control" placeholder="Password" 
+               [(ngModel)]="credentials.password"
+               name="password"
+               required>
+
+        <!--
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Recordar mis datos
+        </label>
+        -->         
+        <button type="submit" 
+               class="btn btn-lg btn-primary btn-block"
+               [disabled]="form.invalid">Iniciar sesion</button>
+        
+        <br>
+        <p class="text-center"> 
+          ¿No tienes cuenta? Create una <a [routerLink]="['/users/create']">aquí</a> 
+        </p>
+  </form>
+</div> 
+
+<!-- messages -->
+<div *ngIf="errorMessage"   class="alert alert-danger text-center">{{ errorMessage }}</div> 
+
+<br>

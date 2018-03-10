@@ -17,6 +17,8 @@ export class UsersService {
 	//private _baseURL = 'http://localhost:3000/auth/users';
 	private _baseURL = 'http://localhost:3000/auth';
 
+	// IN CASE I want to store the new registered user GLOBALLY
+	public user = window['user'];
   
   // So far I haven't needed to use this configuration options, if any time
   //    then "this.http.get(`${this._baseURL}`, options).subscribe(....)"
@@ -28,6 +30,7 @@ export class UsersService {
   constructor (private _http: Http) {
 	}
 
+	/*
 	private isJsonString(str) {
     try {
         JSON.parse(str);
@@ -36,19 +39,20 @@ export class UsersService {
     }
     return true;
 	}
+	*/
 
 	// error handling -----------------------------------------------------------
 	// to handle errors that come back from our back-end server
-	/*
+
 	private handleError(error: Response) {
-		console.error(error);
+		//console.error(error);
 		return Observable.throw(error.json().message || 'Server error'); 
   } 
-  */
+  
   /* --------------------------------------------------------------------------*/
 	// Handle any errors from the API
 	/* ---------------------------------------------------------------------------*/
-	
+	/*
   private handleError(err: any) {
 		let errMessage: string;
 		console.log(err);
@@ -94,12 +98,20 @@ export class UsersService {
 
 		console.log('Valor errMessage es: ' + errMessage );
     return Observable.throw(errMessage);
-  } 
+	} 
+	*/
+	
+	// to handle errors that come back from our back-end server -----------------
+	// all my backend errors come in 'text' format and not in 'json'
+	private handleTextError(error: Response) {
+			//console.error(error);
+			return Observable.throw(error.text() || 'Server error'); 
+	} 
 
   // grab list of users -------------------------------------------------------
   list(): Observable<any> {
 		return this._http
-			.get(`${this._baseURL}/users`)
+			.get(`${this._baseURL}/users`, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
   }
@@ -107,7 +119,7 @@ export class UsersService {
     // grab detail of a user ---------------------------------------------
 	read(username: string): Observable<any> {
 		return this._http
-			.get(`${this._baseURL}/users/${username}`)
+			.get(`${this._baseURL}/users/${username}`, this._options)
 			.map((res: Response) => res.json()) 
 			.catch(this.handleError);
 	}
@@ -122,15 +134,19 @@ export class UsersService {
 		//console.log(user);
 
 		return this._http
-			.post(`${this._baseURL}/signup`, user)
-			.map((res: Response) => res.json())  // THIS WAS GIVING ERROR (The back-end is only sending a String in the body (username), not an object)
-			.catch(this.handleError);
+			.post(`${this._baseURL}/signup`, user, this._options)
+			// THIS WAS GIVING ERROR (Back-end was sending a String in the body (username), not a Json object)
+			.map((res: Response) => res.json())  
+		//.map(user => this.user = user)  //In case we want to store it GLOBALLY in 'user' public property
+		// Showed wrong message when a username already exists (because it comes in text not in JSON).
+		//.catch(this.handleError); 
+			.catch(this.handleTextError); 
 	}
 
 	// edit an existing user ----------------------------------------------
 	update(user: any): Observable<any> {
 		return this._http
-			.put(`${this._baseURL}/users/${user._id}`, user)
+			.put(`${this._baseURL}/users/${user._id}`, user, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
 	}
@@ -138,7 +154,7 @@ export class UsersService {
 	// delete an existing user --------------------------------------------
 	delete(userId: any): Observable<any> {
 		return this._http
-			.delete(`${this._baseURL}/users/${userId}`)
+			.delete(`${this._baseURL}/users/${userId}`, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
 	}	

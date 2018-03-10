@@ -74,7 +74,8 @@ export class ListObrasComponent implements OnInit {
     .list()
     .subscribe(
        (data) => { 
-         console.log(data);
+         //console.log(data);
+         
          // MUY IMPORTANTE
          // el back-end hace un "unwind" por lo que con en 'data' nos llegan tambien
          // los datos de  su promotor (y los datos reales de la Obra estaran en

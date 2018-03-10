@@ -40,7 +40,7 @@ export class EditObraComponent implements OnInit {
             .subscribe((obra) => {
                           // The object I get does NOT have the id for promotor
                         this.obra = obra.promociones[0];
-                        console.log(this.obra);
+                        //console.log(this.obra);
                       },
                       (error) => {
                         this._router.navigate(['/obras']);

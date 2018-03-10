@@ -1,14 +1,5 @@
-
 <br>
 <!-- Valor navBarSearchText: {{ navBarSearchText }} -->
-
-<!-- Filtro DENTRO del propio componente -->
-<!--
-<form id="filter">
-  <label>Filter promotores by name:</label>
-  <input type="text" [ngModelOptions]="{standalone:true}" [(ngModel)]="term" />
-</form>
--->
 
 <div class="card border-dark">
 
@@ -48,7 +39,8 @@
 		<!-- CARD BODY -->
 		<div class="card-body text-dark text-center">
 			<h5 class="card-title">
-				Gestionamos un total de {{countPromotores}} promotores{{ misPromotoresMsg }}<br>
+				Gestionamos un total de {{countPromotores}} promotores<br>
+				{{ misPromotoresMsg }}<br>
 			</h5>
 	
 			<!-- BOTON para crear un promotor, en 'routerLink' especificamos la ruta a cargar -->
@@ -81,7 +73,7 @@
 				</div>
 				<div class="form-check">
 					<input class="form-check-input"  
-								(click)="selectRadioBtnPromotors('misPromos', 'amm11')"
+								(click)="selectRadioBtnPromotors('misPromos', currentUsername)"
 								type="radio" 
 								name="tipoCon" 
 								id="misPromoRadio" 
@@ -108,121 +100,133 @@
 </div>
 -->
 
-<!-- TABLE -->
-<!-- <div class="table table-responsive"> --> <!-- No me gusta: hace que no ocupe todo el ancho -->
-<table class="table table-striped table-hover table-sm">		
+<div *ngIf="promotores && promotores.length === 0">
+	<div class="jumbotron text-center"> 
+			<h2> No hay promotores dados de alta en el sistema </h2>
+			<p>
+				Si quiere crear un nuevo promotor pulse 
+				<a [routerLink]="['/promotor/create']">aquí</a>
+				o en el boton "Crear Promotor"
+			</p>
+	</div>
+</div>
 
-	<thead class="thead-dark">
-		<tr class=""> 
-			<th class="w-10">Fila
-			</th>
-			<th class="w-10" (click)="sort('codigop')">Codigo
-				 <!-- No meter clase "fa fa-sort" ya que sino no funciona, dejar solo 'fa'  -->
-					<span class="fa" 
-								*ngIf="sortKey=='codigop'" 
-								[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
-					</span>
+<div *ngIf="promotores && promotores.length > 0">
+
+	<!-- TABLE -->
+	<!-- <div class="table table-responsive"> --> <!-- No me gusta: hace que no ocupe todo el ancho -->
+	<table class="table table-striped table-hover table-sm">		
+
+		<thead class="thead-dark">
+			<tr class=""> 
+				<th class="align-middle">Fila
 				</th>
-			<th class="w-10" (click)="sort('nombrep')">Nombre
-					<span class="fa" 
-								*ngIf="sortKey=='nombrep'" 
-								[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
-					</span>
-			</th>
-			<th class="w-10" (click)="sort('creado_el')">Fecha Alta
-					<span class="fa" 
-								*ngIf="sortKey=='creado_el'" 
-								[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
-					</span>
-			</th>
-			<th class="w-10">Operaciones</th>  
-	 	</tr> 
-	</thead>
+				<th class="align-middle" (click)="sort('codigop')">Codigo
+					<!-- No meter clase "fa fa-sort" ya que sino no funciona, dejar solo 'fa'  -->
+						<span class="fa" 
+									*ngIf="sortKey=='codigop'" 
+									[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
+						</span>
+					</th>
+				<th class="align-middle" (click)="sort('nombrep')">Nombre
+						<span class="fa" 
+									*ngIf="sortKey=='nombrep'" 
+									[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
+						</span>
+				</th>
+				<th class="align-middle" (click)="sort('creado_el')">Fecha Alta
+						<span class="fa" 
+									*ngIf="sortKey=='creado_el'" 
+									[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
+						</span>
+				</th>
+				<th class="align-middle">Operaciones</th>  
+			</tr> 
+		</thead>
 
-	<tbody>
-		 <!-- <tr *ngFor="let promotor of promotores | appFilter:filterInput" -->
-		<!-- filtro orderBy { collection | orderBy: expression : reverse : caseInsensitive : comparator } -->
-			<tr class=""  *ngFor="let promotor of promotores 
-											| appFilter: termSearch
-											| appFilter: filterMisPromotores
-											| orderBy: sortKey: reverse: true 
-											| paginate: { itemsPerPage: numItemsPerPage, currentPage: p }
-											  as promoInNgFor; index as i; last as isLast"				
-					 ng-class-odd="'odd'" 
-					 ng-class-even="'even'">
+		<tbody>
+			<!-- <tr *ngFor="let promotor of promotores | appFilter:filterInput" -->
+			<!-- filtro orderBy { collection | orderBy: expression : reverse : caseInsensitive : comparator } -->
+				<tr class=""  *ngFor="let promotor of promotores 
+												| appFilter: termSearch
+												| appFilter: filterMisPromotores
+												| orderBy: sortKey: reverse: true 
+												| paginate: { itemsPerPage: numItemsPerPage, currentPage: p }
+													as promoInNgFor; index as i; last as isLast"				
+						ng-class-odd="'odd'" 
+						ng-class-even="'even'">
 
-				<!--<span *ngIf="isLast">LENGTH: {{promoInNgFor.length}}</span> --> 
+					<!--<span *ngIf="isLast">LENGTH: {{promoInNgFor.length}}</span> --> 
 
-				<!-- Cuenta pero no es bueno para todos los casos (además mete HTML que cambia tabla) -->
-				<!--Count:  {{promotor.parent.length }} -->
-				<td class="w-10">
-						{{i + 1}}
-						<div *ngIf="updateNumberPromotors(promoInNgFor.length)">
-						</div>	
-				</td> 
-				<td class="w-10">
-					<a [routerLink]="['/promotores/view', promotor._id]">{{promotor.codigop}}</a>
-				</td> 
-				<td class="w-10">{{ promotor.nombrep }}</td>
-		<!--		<td class="w-10">{{ promotor.creado_el | date:'yyyy/MM/dd'}}</td> -->
-		 		<td class="w-10">{{ promotor.creado_el | date:"MMM d, y '('h:mma')'"}}</td> 
-		
-				
-				<td class="w-10">
-					<div class="button-group">
-						<a [routerLink]="['/promotores/edit', promotor._id]"
-								class="btn btn-outline-info"
-								data-toogle="tooltip"
-								data-placement="top"
-								title="Editar promotor">
-								<span class="fa fa-pencil-square-o fa-lg"></span>
-						</a>
+					<!-- Cuenta pero no es bueno para todos los casos (además mete HTML que cambia tabla) -->
+					<!--Count:  {{promotor.parent.length }} -->
+					<td class="align-middle">
+							{{i + 1}}
+							<!--
+							<div *ngIf="updateNumberPromotors(promoInNgFor.length)">
+							</div>	
+							-->
+					</td> 
+					<td class="align-middle">
+						<a [routerLink]="['/promotores/view', promotor._id]">{{promotor.codigop}}</a>
+					</td> 
+					<td class="align-middle">{{ promotor.nombrep }}</td>
+			<!--		<td class="w-10">{{ promotor.creado_el | date:'yyyy/MM/dd'}}</td> -->
+					<td class="align-middle">{{ promotor.creado_el | date:"MMM d, y '('h:mma')'"}}</td> 
 			
-						<a [routerLink]="['/promotores/delete', promotor._id]"
-								class="btn btn-outline-danger	"
-								data-toogle="tooltip"
-								data-placement="top"
-								title="Borrar promotor">
-								<span class="fa fa-trash-o fa-lg"></span>
-						</a>
+					
+					<td class="align-middle">
+						<div class="button-group">
+							<a [routerLink]="['/promotores/edit', promotor._id]"
+									class="btn btn-outline-info"
+									data-toogle="tooltip"
+									data-placement="top"
+									title="Editar promotor">
+									<span class="fa fa-pencil-square-o fa-lg"></span>
+							</a>
+				
+							<a [routerLink]="['/promotores/delete', promotor._id]"
+									class="btn btn-outline-danger	"
+									data-toogle="tooltip"
+									data-placement="top"
+									title="Borrar promotor">
+									<span class="fa fa-trash-o fa-lg"></span>
+							</a>
 
-						<a [routerLink]="['/obras', promotor._id]"
-								class="btn btn-outline-dark	"
-								data-toogle="tooltip"
-								data-placement="top"
-								title="Consultar obras del promotor">
-								<span class="fa fa-list-ol fa-md"></span>
-						</a>
+							<a [routerLink]="['/obras', promotor._id]"
+									class="btn btn-outline-dark	"
+									data-toogle="tooltip"
+									data-placement="top"
+									title="Consultar obras del promotor">
+									<span class="fa fa-list-ol fa-md"></span>
+							</a>
 
-					</div>
-				</td>
- 
-			</tr>
-	</tbody>
-</table> 
+						</div>
+					</td>
+	
+				</tr>
+		</tbody>
+	</table> 
 
-<!-- </div> -->
+	<!-- </div> -->
 
-<!-- PAGINATION -->
-<!-- incluye el html pero la paginacion NO funciona -->
-<!--
-<app-pagination ></app-pagination> 
-<app-pagination (onAlterPage)="receivePageNumber($event)"></app-pagination>
--->
+	<!-- PAGINATION -->
+	<!-- incluye el html pero la paginacion NO funciona -->
+	<!--
+	<app-pagination ></app-pagination> 
+	<app-pagination (onAlterPage)="receivePageNumber($event)"></app-pagination>
+	-->
 
-<div class="row form-group">
-		<div class="text-center col-sm-12"> 
+	<div class="row form-group">
+			<div class="text-center col-sm-12"> 
 
-				<pagination-controls (pageChange)="p = $event"
-				class="my-pagination"
-							previousLabel="Anterior"
-							nextLabel="Siguiente">
-				</pagination-controls>
+					<pagination-controls (pageChange)="p = $event"
+					class="my-pagination"
+								previousLabel="Anterior"
+								nextLabel="Siguiente">
+					</pagination-controls>
 
-		</div>
+			</div>
 	</div>
 
-
-<div *ngIf="promotores && promotores.length === 0">
-	<!--	No promotors yet, why don't you <a [routerLink]="['/promotores/create']">create one</a>? -->
-</div>
+</div> 

@@ -53,31 +53,31 @@
 
 	<thead class="thead-dark">
 	
-        <th (click)="sort('codigop')">Codigo Promotor
+        <th class="align-middle" (click)="sort('codigop')">Codigo Promotor
           <span class="fa" 
                 *ngIf="sortKey=='codigop'" 
                 [ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
           </span>
         </th>
-			  <th (click)="sort('codigoobra')">Codigo Obra
+			  <th class="align-middle" (click)="sort('codigoobra')">Codigo Obra
 					<span class="fa" 
 								*ngIf="sortKey=='codigoobra'" 
 								[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
 					</span>
 				</th>
-				<th (click)="sort('nombreobra')">Nombre Obra
+				<th class="align-middle" (click)="sort('nombreobra')">Nombre Obra
 					<span class="fa" 
 								*ngIf="sortKey=='nombreobra'" 
 								[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
 					</span>
 				</th>
-				<th (click)="sort('creada')">Fecha Alta Obra
+				<th class="align-middle" (click)="sort('creada')">Fecha Alta Obra
 					<span class="fa" 
 								*ngIf="sortKey=='creada'" 
 								[ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
 					</span>
 				</th>
-				<th>Operaciones</th>  
+				<th class="align-middle">Operaciones</th>  
 	</thead>
 
 <!-- OJO, en esta pantalla obra._id es el identificador del PROMOTOR, no de la OBRA que no tiene campo _id -->
@@ -90,7 +90,7 @@
 											| paginate: { itemsPerPage: numItemsPerPage, currentPage: p }
 											; index as i">
 
-				<td>
+				<td class="align-middle">
 						<a [routerLink]="['/obras', obra._id]"
 						title="Ver obras del promotor">
 						{{ obra.codigop }}
@@ -104,11 +104,12 @@
 				-->
 
 				<!-- Para la version MOCKED (objeto adaptado a mis necesidades para buen filtrado -->
-				<td>{{ obra.codigoobra }}</td>
-        <td>{{ obra.nombreobra }}</td>
-        <td>{{ obra.creada | date:"MMM d, y ' a las ' h:mma"}}</td> 
+				<td class="align-middle">{{ obra.codigoobra }}</td>
+				<td class="align-middle">{{ obra.nombreobra }}</td>
+				<td class="align-middle">{{ obra.creada | date:"MMM d, y '('h:mma')'"}}</td>
+        <!-- <td>{{ obra.creada | date:"MMM d, y ' a las ' h:mma"}}</td> -->
 				
-				<td>
+				<td class="align-middle">
 					<div class="button-group">
 
 						<!-- DETAIL BUTTON -->

@@ -8,41 +8,33 @@
   </p>
   
   <div class="mainbuttons">
-    <a  
+    <a *ngIf="!isLoggedIn"
       class="btn btn-lg btn-outline-primary" 
-      [routerLink]="['/users']">
+      [routerLink]="['/users/login']">
       Iniciar sesion
       <span class="fa fa-sign-in fa-lg"></span>
     </a>
-    <a 
+    <a *ngIf="!isLoggedIn"
       class="btn btn-lg btn-outline-danger" 
       [routerLink]="['/users/create']">
       Registrate!
       <span class="fa fa-pencil fa-lg"></span>
     </a>
+    <a *ngIf="isLoggedIn" id="btnSignOut"
+      class="btn btn-lg btn-outline-danger" 
+      (click)="signout()">
+      Cerrar sesion!
+      <span class="fa fa-sign-out fa-lg"></span> 
+    </a>
+
   </div>
 
-<!-- 
-  <i class="fa fa-sign-out"></i>  -->
-
-  <!--
-  <div class="mainbuttons">
-    <a ng-hide="authenticated" 
-      class="btn btn-lg btn-default" ng-href="#/user/login">Inicia sesion
-      <span class="glyphicon glyphicon-log-in"></span>
-    </a>
-    <a ng-hide="authenticated" class="btn btn-lg btn-success" 
-      ng-href="#/user/create">Registrate!
-      <span class="glyphicon glyphicon-pencil"></span>
-    </a>
-  </div>
--->
 </div>
 
 <div class="container align-middle"> 
   <div class="row marketing justify-content-center"> 
   <!--  <h2>Bienvenido a la app de Gestión de Promotores y sus Obras</h2> -->
-    <h5>Para poder acceder has de estar registrado en la aplicación</h5>
+    <h5 *ngIf="!isLoggedIn">Para poder acceder has de estar registrado en la aplicación</h5>
   </div>
 </div>
 

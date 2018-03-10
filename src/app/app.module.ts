@@ -25,6 +25,9 @@ import { AppFilterModule }      from './app-filter.module';
 
 // services
 import { PassDataService }       from '../app/shared/pass-data.service';
+import { AuthGuard }             from '../app/shared/guards/auth.guard';
+import { AdminGuard }            from '../app/shared/guards/admin.guard';
+import { ProfileGuard }          from '../app/shared/guards/profile.guard';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,7 @@ import { PassDataService }       from '../app/shared/pass-data.service';
     ObrasModule,
     UsersModule
   ],
-  providers: [PassDataService],
+  providers: [PassDataService, AuthGuard, AdminGuard, ProfileGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

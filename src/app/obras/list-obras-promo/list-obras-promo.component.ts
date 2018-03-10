@@ -43,7 +43,7 @@ export class ListObrasPromoComponent implements OnInit {
     this.paramsObserver = this._activatedRoute.params.subscribe(params => {
         
       this.promotorId = params['promotorId'];
-      console.log('Id del promotor del que mostrare sus obras: ' + this.promotorId)
+      //console.log('Id del promotor del que mostrare sus obras: ' + this.promotorId)
       
       /* The back-end sends an Array filled ONLY with Obras (no Promotor), so
       /* this solution is valid for the PIPE filter (no need to mock data) */
@@ -51,7 +51,7 @@ export class ListObrasPromoComponent implements OnInit {
           .listObrasPromotor(this.promotorId)
           .subscribe(
             (obras) => { 
-              console.log(obras);
+              //console.log(obras);
               this.obras  = obras; 
               this.countObrasPromotor = this.obras.length;
             }

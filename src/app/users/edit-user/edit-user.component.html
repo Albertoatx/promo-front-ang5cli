@@ -1,6 +1,14 @@
 
-<h1>EDIT Ususario</h1>
+<h1>EDIT Usuario</h1>
 <br>
+
+<div *ngIf="!user">
+  <div class="jumbotron text-center"> 
+    <h2> El nombre de usuario no se encuentra en el sistema</h2>
+  </div>
+</div>
+
+<div *ngIf="user">
 
 <!-- creamos tabs que pondremos al comienzo de las páginas para "view" y "edit" -->
 <!-- en función de si estamos consultando o editando tenemos que fijar que clase esta activa -->
@@ -101,16 +109,36 @@
   </div>
 
   <br>
-  <div class="obrasbuttons">
+    <!-- To have one button in the center (styles) and the other on the right -->
+    <div class="row">
+        <div class="col-sm-11 text-center">
+            <input  type="submit" 
+                    class="btn btn-primary confirmButton" 
+                    value="Actualizar" 
+                    [disabled]="form.invalid">   <!-- #form="ngForm" -->
+        </div>
+    
+        <div class="col-sm-1">
+            <button *ngIf="isAdmin" type="button" 
+                    class="btn btn-success" 
+                    (click)="goBack()">Back
+            </button>
+        </div>
+  </div>
+  <!--
+  <div class="obras-buttons">
     <input type="submit" 
            class="btn btn-primary" 
            value="Actualizar" 
            [disabled]="form.invalid">
-    <button type="button" 
+    <button *ngIf="isAdmin" type="button" 
             class="btn btn-success" 
             (click)="goBack()">Back
     </button>
   </div>
+  -->
 
 	<strong id="error">{{errorMessage}}</strong>
 </form>
+
+</div>

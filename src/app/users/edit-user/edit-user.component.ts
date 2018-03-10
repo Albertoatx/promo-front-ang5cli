@@ -2,7 +2,8 @@ import { Component, OnInit }           from '@angular/core';
 
 import { Router, ActivatedRoute }      from '@angular/router';
 
-import { UsersService }           from '../users.service';
+import { UsersService }               from '../users.service';
+import { AuthService }                from '../auth.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -20,6 +21,7 @@ export class EditUserComponent implements OnInit {
   editUser: boolean = true; //Indica que estamos en la vista de edicion
 
   constructor(private _usersService: UsersService,
+              private _authService: AuthService,
               private _router: Router,
               private _activatedRoute: ActivatedRoute) { 
   }
@@ -69,7 +71,7 @@ export class EditUserComponent implements OnInit {
           .subscribe((user) => {
                       this.user = user;
                       //console.log(this.user);
-                      console.log(this.user.datebirth);  //string en formato '1979-10-30T23:00:00.000Z'
+                      //console.log(this.user.datebirth);  //string en formato '1979-10-30T23:00:00.000Z'
                       
                       //We are forced to send 'date' with this format 'yyyy-MM-dd" (at least in Chrome)
                       // Does NOT work!
@@ -102,7 +104,7 @@ export class EditUserComponent implements OnInit {
                       if (this.user.datebirth) {
                         let dateString = this.user.datebirth.substring(0, 10)
                         this.user.datebirth = dateString;
-                        console.log(dateString);
+                        //console.log(dateString);
                       }
 										},
 										(error) => {
@@ -113,6 +115,11 @@ export class EditUserComponent implements OnInit {
     
   } // ngOnInit()
 
+  // Check if the user logged is Admin
+  get isAdmin() { 
+    return this._authService.isAdmin();
+  }
+
   // unsubscribe from param observer ------------------------------------------
   ngOnDestroy() {
 		this.paramsObserver.unsubscribe();
@@ -120,7 +127,7 @@ export class EditUserComponent implements OnInit {
   
   // update promotor ----------------------------------------------------------
   updateUser() {
-    console.log("Edición del usuario");
+    //console.log("Edición del usuario");
     this._usersService
         .update(this.user)
         .subscribe((editedUser) => {

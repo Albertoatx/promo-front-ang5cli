@@ -132,16 +132,23 @@
   </fieldset>
   
   <br>
-  <div class="obrasbuttons">
-    <input type="submit" 
-           class="btn btn-primary" 
-           value="Actualizar" 
-           ng-disabled="false">
-    <button type="button" 
-            class="btn btn-success" 
-            (click)="goBack()">Back
-    </button>
+  <div class="row">
+    <div class="col-sm-11 text-center">
+        <input type="submit" 
+        class="btn btn-primary confirmButton" 
+        value="Actualizar" 
+        ng-disabled="false">
+    </div>
+
+    <div class="col-sm-1">
+        <button type="button" 
+        class="btn btn-success" 
+        (click)="goBack()">Back
+        </button>
+    </div>
   </div>
+
+
 
 	<strong id="error">{{errorMessage}}</strong>
 </form>

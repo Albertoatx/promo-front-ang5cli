@@ -24,6 +24,11 @@ import { CreateUserComponent }        from './users/create-user/create-user.comp
 import { EditUserComponent }          from './users/edit-user/edit-user.component';
 import { ViewUserComponent }          from './users/view-user/view-user.component';
 import { DeleteUserComponent }        from './users/delete-user/delete-user.component';
+import { LoginComponent }             from './users/login/login.component';
+
+import { AuthGuard }                  from './shared/guards/auth.guard';
+import { AdminGuard }                 from './shared/guards/admin.guard';
+import { ProfileGuard }               from './shared/guards/profile.guard';
 
 // routing
 const routes: Routes = [
@@ -34,22 +39,27 @@ const routes: Routes = [
   // Promotores routing ------------------- 
   {
     path: 'promotores',
-    //component: PromotoresComponent,  //NO HACE FALTA
+    //component: PromotoresComponent,  //Este componente NO HACE FALTA
     children: [
       { path: '', 
-        component: ListPromoComponent
+        component: ListPromoComponent,
+        canActivate: [AuthGuard]
       },
       { path: 'view/:promotorId', 
-        component: ViewPromoComponent
+        component: ViewPromoComponent,
+        canActivate: [AuthGuard]
       },
       { path: 'create', 
-        component: CreatePromoComponent
+        component: CreatePromoComponent,
+        canActivate: [AuthGuard]
       },
       { path: 'edit/:promotorId', 
-        component: EditPromoComponent
+        component: EditPromoComponent,
+        canActivate: [AuthGuard]
       },
       { path: 'delete/:promotorId', 
-        component: DeletePromoComponent
+        component: DeletePromoComponent,
+        canActivate: [AuthGuard]
       }
     ]
   },
@@ -58,22 +68,28 @@ const routes: Routes = [
     path: 'obras',
     children: [
       { path: '', 
-        component: ListObrasComponent
+        component: ListObrasComponent,
+        canActivate: [AuthGuard]
       },
       { path: ':promotorId', 
-        component: ListObrasPromoComponent
+        component: ListObrasPromoComponent,
+        canActivate: [AuthGuard]
       },
       { path: 'view/:promotorId/:obraId', 
-        component: ViewObraComponent
+        component: ViewObraComponent,
+        canActivate: [AuthGuard]
       },
       { path: 'create/:promotorId', 
-        component: CreateObraComponent
+        component: CreateObraComponent,
+        canActivate: [AuthGuard]
       },
       { path: 'edit/:promotorId/:obraId', 
-        component: EditObraComponent
+        component: EditObraComponent,
+        canActivate: [AuthGuard]
       },
       { path: 'delete/:promotorId/:obraId', 
-        component: DeleteObraComponent
+        component: DeleteObraComponent,
+        canActivate: [AuthGuard]
       }
     ]
   },
@@ -82,19 +98,26 @@ const routes: Routes = [
     path: 'users',
     children: [
       { path: '', 
-        component: ListUsersComponent
+        component: ListUsersComponent,
+        canActivate: [AdminGuard]
       },
       { path: 'view/:username', //'username' has to be the name used in 'routerLink'
-        component: ViewUserComponent
+        component: ViewUserComponent,
+        canActivate: [AuthGuard, ProfileGuard] //check both BEFORE activating this route
       },
       { path: 'create', 
         component: CreateUserComponent
       },
       { path: 'edit/:username', 
-        component: EditUserComponent
+        component: EditUserComponent,
+        canActivate: [AuthGuard, ProfileGuard]
       },
       { path: 'delete/:username', 
-        component: DeleteUserComponent
+        component: DeleteUserComponent,
+        canActivate: [AdminGuard]
+      },
+      { path: 'login', 
+        component: LoginComponent
       }
     ]
   },

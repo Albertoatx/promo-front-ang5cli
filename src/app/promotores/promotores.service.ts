@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {Observable} 	from 'rxjs/Observable';
 
-import {Http, Headers, Request, RequestMethod, Response} from '@angular/http';
+import {Http, Headers, Request, RequestMethod, RequestOptions, Response} from '@angular/http';
 
 @Injectable()
 export class PromotoresService {
@@ -16,6 +16,16 @@ export class PromotoresService {
   constructor (private _http: Http) {
 	}
 
+
+	//let headers = new Headers({ 'Content-Type': 'application/json' });
+//	let options = new RequestOptions({ headers: headers });
+
+	 // So far I haven't needed to use this configuration options, if any time
+  //    then "this.http.get(`${this._baseURL}`, options).subscribe(....)"
+  private _headers = new Headers({ 'Content-Type': 'application/json' });
+  private _options = new RequestOptions({headers: this._headers, 
+                                         withCredentials: true }); //for CORS
+
 	// error handling
 	private handleError(error: Response) {
 		return Observable.throw(error.json().message || 'Server error');
@@ -24,7 +34,7 @@ export class PromotoresService {
   // grab list of promotors -----------------------------------------------
   list(): Observable<any> {
 		return this._http
-			.get(this._baseURL)
+			.get(this._baseURL, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
 	}
@@ -32,7 +42,7 @@ export class PromotoresService {
   // grab detail of a promotor ---------------------------------------------
 	read(promotorId: string): Observable<any> {
 		return this._http
-			.get(`${this._baseURL}/${promotorId}`)
+			.get(`${this._baseURL}/${promotorId}`, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
 	}
@@ -40,7 +50,7 @@ export class PromotoresService {
 	// create a new promotor ------------------------------------------------
 	create(promotor: any): Observable<any> {
 		return this._http
-			.post(`${this._baseURL}/add`, promotor)
+			.post(`${this._baseURL}/add`, promotor, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
   }
@@ -48,7 +58,7 @@ export class PromotoresService {
 	// edit an existing promotor ----------------------------------------------
 	update(promotor: any): Observable<any> {
 		return this._http
-			.put(`${this._baseURL}/${promotor._id}`, promotor)
+			.put(`${this._baseURL}/${promotor._id}`, promotor, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
 	}
@@ -56,7 +66,7 @@ export class PromotoresService {
 	// delete an existing promotor --------------------------------------------
 	delete(promotorId: any): Observable<any> {
 		return this._http
-			.delete(`${this._baseURL}/${promotorId}`)
+			.delete(`${this._baseURL}/${promotorId}`, this._options)
 			.map((res: Response) => res.json())
 			.catch(this.handleError);
 	}	

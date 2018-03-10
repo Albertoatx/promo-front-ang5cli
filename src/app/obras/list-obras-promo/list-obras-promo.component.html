@@ -45,25 +45,25 @@
             </span>
           </th>
         -->
-          <th (click)="sort('codigoobra')">Codigo Obra
+          <th class="align-middle" (click)="sort('codigoobra')">Codigo Obra
             <span class="fa" 
                   *ngIf="sortKey=='codigoobra'" 
                   [ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
             </span>
           </th>
-          <th (click)="sort('nombreobra')">Nombre Obra
+          <th class="align-middle" (click)="sort('nombreobra')">Nombre Obra
             <span class="fa" 
                   *ngIf="sortKey=='nombreobra'" 
                   [ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
             </span>
           </th>
-          <th (click)="sort('creada')">Fecha Alta Obra
+          <th class="align-middle" (click)="sort('creada')">Fecha Alta Obra
             <span class="fa" 
                   *ngIf="sortKey=='creada'" 
                   [ngClass]="{'fa-sort-asc':reverse, 'fa-sort-desc':!reverse}">
             </span>
           </th>
-          <th>Operaciones</th>  
+          <th class="align-middle">Operaciones</th>  
     </thead>
     
     <tbody>
@@ -78,11 +78,12 @@
             {{ promotorId }}
           </td> 
           -->
-          <td>{{ obra.codigoobra }}</td>
-          <td>{{ obra.nombreobra }}</td>
-          <td>{{ obra.creada | date:"MMM d, y ' a las ' h:mma"}}</td> 
+          <td class="align-middle">{{ obra.codigoobra }}</td>
+          <td class="align-middle">{{ obra.nombreobra }}</td>
+          <td class="align-middle">{{ obra.creada | date:"MMM d, y '('h:mma')'"}}</td> 
+        <!--  <td>{{ obra.creada | date:"MMM d, y ' a las ' h:mma"}}</td> -->
           
-          <td>
+          <td class="align-middle">
             <div class="button-group">
 
               <a [routerLink]="['/obras/view/', promotorId, obra.codigoobra]"
@@ -151,6 +152,7 @@
 </div>
 
 <!-- If i use 'row' class the buttons have no separation and go outside the table width -->
+<!--
 <div class="obrasbuttons">
   <a class="btn btn-primary" [routerLink]="['/obras/create', promotorId]">
 		<span class="fa fa-plus-circle fa-lg"></span> 
@@ -161,6 +163,25 @@
           class="btn btn-success" 
           (click)="goBack()">Back
   </button>
+</div>
+-->
+
+<!-- To have one button in the center (styles) and the other on the right -->
+<div class="row">
+    <div class="col-sm-11 text-center">
+        <a class="btn btn-primary confirmButton" 
+          [routerLink]="['/obras/create', promotorId]">
+          <span class="fa fa-plus-circle fa-lg"></span> 
+              Crear Obra
+        </a> 
+    </div>
+
+    <div class="col-sm-1">
+        <button type="button" 
+                class="btn btn-success" 
+                (click)="goBack()">Back
+        </button>
+    </div>
 </div>
 
 

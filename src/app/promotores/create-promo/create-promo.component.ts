@@ -43,8 +43,11 @@ export class CreatePromoComponent implements OnInit {
 
   ngOnInit() {
     //to avoid error (undefined before grabbing data)
-    this.promotor = {}; 
-    this.promotor.direcp = {};
+    //this.promotor = {}; 
+    //this.promotor.direcp = {};
+    this.promotor = { codigop: '', nombrep: '', cifp: '', telefp: '', emailp: '',  
+                      direcp: {callep: '', pueblo: '', provincia: '', codpostal: ''}
+    };
 
     //This is how to work with Typescript classes for model
     /*
@@ -68,14 +71,14 @@ export class CreatePromoComponent implements OnInit {
   }
 
   savePromotor() {
-    console.log('Datos del promotor a GUARDAR');
-    console.log(this.promotor);
+    //console.log('Datos del promotor a GUARDAR');
+    //console.log(this.promotor);
 
     this._promotoresService
         .create(this.promotor)
         .subscribe((createdPromotor) => {
-                      console.log('Se ha creado el siguiente promotor');
-                      console.log(createdPromotor);
+                      //console.log('Se ha creado el siguiente promotor');
+                      //console.log(createdPromotor);
                       this.submitted = true;
                       this._router.navigate(['/promotores/view', createdPromotor._id]);
                   },

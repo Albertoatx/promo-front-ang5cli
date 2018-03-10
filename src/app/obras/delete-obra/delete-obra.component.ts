@@ -41,7 +41,7 @@ export class DeleteObraComponent implements OnInit {
             .subscribe((obra) => {
                       // The object we get does NOT have any promotor data
                         this.obra = obra.promociones[0];
-                        console.log(this.obra);
+                        //console.log(this.obra);
                       },
                       (error) => {
                         this._router.navigate(['/obras']);
@@ -65,8 +65,8 @@ export class DeleteObraComponent implements OnInit {
         .delete(this.promotorId, this.obraId, this.obra)
         .subscribe((deletedObra) => {
                     // ojo, el DELETE del back-end devuelve el promotor con todas sus obras
-                    console.log('OBRA TRAS SER BORRADA');
-                    console.log(deletedObra); 
+                    //console.log('OBRA TRAS SER BORRADA');
+                    //console.log(deletedObra); 
                     this._router.navigate(['/obras']);
                    },
 							 		 (error) => {

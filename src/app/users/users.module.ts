@@ -6,6 +6,7 @@ import { FormsModule }              from '@angular/forms';
 
 // services
 import { UsersService }             from './users.service';
+import { AuthService }              from './auth.service';
 
 // my modules
 import { AppFilterModule }          from '../app-filter.module';
@@ -39,6 +40,6 @@ import { LoginComponent }           from './login/login.component';
     DeleteUserComponent,
     LoginComponent
   ],
-  providers: [UsersService]
+  providers: [UsersService, AuthService]
 })
 export class UsersModule { }
