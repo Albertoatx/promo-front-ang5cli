@@ -11,7 +11,19 @@ This Angular5 app was created to consume resources from a Node RESTful API appli
 ## Development server (Running of this Angular5 App)
 Download or clone this repo.
 
-Run `ng serve` for a dev server. 
+Make sure AngularCLI is installed globally
+
+```bash
+npm install -g @angular/cli
+```
+
+Install all the dependencies specified in the `package.json` file:
+
+```bash
+npm install
+```
+
+Run `ng serve` to run the app in a dev server. 
 
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
